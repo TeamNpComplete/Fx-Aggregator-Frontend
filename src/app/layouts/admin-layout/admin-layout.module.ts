@@ -15,6 +15,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 // import { ToastrModule } from 'ngx-toastr';
 
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +29,11 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     HttpClientModule,
     NgbModule,
     ClipboardModule,
+    MatSortModule,
+    MatTableModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
     MDBBootstrapModule.forRoot()
   ],
   declarations: [
