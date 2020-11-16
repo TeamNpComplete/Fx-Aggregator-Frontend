@@ -1,33 +1,28 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface ExchangeRate {
-  vendor: String,
-  exchangeRate: Number,
-  amount: Number
-}
-
+import { appConfiguration } from 'src/app/config/app.config';
+import { ExchangeRateModel } from 'src/app/models/exchange-rate.model';
+import { ExchangeRatesService } from '../../services/exchange-rates.service';
 
 @Component({
   selector: 'app-icons',
   templateUrl: './currency-exchange.component.html',
-  styleUrls: ['./currency-exchange.component.scss']
+  styleUrls: ['./currency-exchange.component.scss'],
+  providers: [ExchangeRatesService]
 })
 export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
 
-  primaryCurrency = 'Select Value';
-  secondaryCurrency = 'Select Value';
-  viewExchangeRateTable = false;
+  primaryCurrency: String = null;
+  secondaryCurrency: String = null;
+  viewExchangeRateTable: Boolean = false;
+  amountToConvert: Number = null;
 
-  currencyRates: ExchangeRate[] = [
-    { vendor: 'European Central Bank', exchangeRate: 1.9, amount: 1.9 * 10000},
-    { vendor: 'Union Bank Of Switzerland', exchangeRate: 2.0 , amount: 2.0 * 10000}
-  ];
+  currencyRates: ExchangeRateModel[] = [];
 
-  displayedColumns = ['vendor', 'exchangeRate', 'amount'];
+  displayedColumns: String[] = ['vendor', 'exchangeRate', 'amount'];
 
-  currencies = ['USD', 'EUR', 'INR', 'JPY', 'ABC', 'XYZ'];
+  currencies: String[] = appConfiguration.supportedCurrencies;
   dataSource = new MatTableDataSource(this.currencyRates);
   public copy: string;
 
@@ -39,7 +34,9 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
 
-  constructor() { }
+  constructor(private exchangeRatesService: ExchangeRatesService) {
+
+  }
 
   ngOnInit() {
   }
@@ -49,9 +46,32 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
   setDataSourceAttributes() {
+    this.dataSource = new MatTableDataSource(this.currencyRates);
     this.dataSource.sort = this.sort;
   }
+
   onCheckRatesClicked() {
     this.viewExchangeRateTable = true;
+    this.exchangeRatesService.getExchangeRate(this.primaryCurrency, this.secondaryCurrency).subscribe(
+      (response: ExchangeRateModel[]) => {
+
+        response.forEach((exchangeRate: ExchangeRateModel) => {
+          let convertedAmount = Number(exchangeRate.exchangeRate) * Number(this.amountToConvert);
+          exchangeRate.amount = convertedAmount;
+        });
+
+        this.currencyRates = response;
+        this.setDataSourceAttributes();
+      },
+      (error) => {
+        console.log(error);
+        this.currencyRates = [
+          { vendor: 'European Central Bank', exchangeRate: 1.9, amount: 1.9 * 10000 },
+          { vendor: 'Union Bank Of Switzerland', exchangeRate: 2.0, amount: 2.0 * 10000 }
+        ];
+        this.setDataSourceAttributes();
+      }
+    )
   }
+
 }
