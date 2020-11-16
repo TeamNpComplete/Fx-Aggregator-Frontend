@@ -19,7 +19,7 @@ export class ExchangeRatesService {
   }
 
   getExchangeRateForRange(fromCurrency: String, toCurrency: String, startDate : Date, endDate : Date) {
-    let requestUrl = apiConfiguration.host + apiConfiguration.exchangeRateForRangeRoute + 
+    let requestUrl = apiConfiguration.host + apiConfiguration.exchangeRateForRangeRoute +
       `?from=${fromCurrency}&to=${toCurrency}&startDate=${startDate.toLocaleDateString('en-US')}&endDate=${endDate.toLocaleDateString('en-US')}`;
     return this.http.get(requestUrl);
   }

@@ -1,32 +1,62 @@
-
-<script src="currency-graph.js"></script>
 <div class="header pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
 
       <div class="row">
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-6 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                  <span class="h2 font-weight-bold mb-0">350,897</span>
+                <div class="col-md-3">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Currency</h5>
+                  <span class="h2 font-weight-bold mb-0">23</span>
                 </div>
-                <div class="col-auto">
+                <!-- <div class="col-auto">
                   <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
                     <i class="fas fa-chart-bar"></i>
                   </div>
+                </div> -->
+                <div  class="col-md-3">
+                  <mat-form-field style="width: 30%;" >
+                    <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency1" name="Currency1" >
+                      <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="secondaryCurrency === currency">
+                        {{currency}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
+
+                <div class="col-md-3">
+                  <mat-form-field  style="width: 30%;">
+                    <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency1" name="Currency1">
+                      <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="primaryCurrency === currency">
+                        {{currency}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                <mat-form-field >
+                    <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" style="font-size: small;" >
+                    <input matEndDate placeholder="End date" style="font-size: small;margin-top: 0%;">
+                  </mat-date-range-input>
+
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
               </div>
-              <p class="mt-3 mb-0 text-muted text-sm">
+
+
+              </div>
+              <!-- <p class="mt-3 mb-0 text-muted text-sm">
                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                 <span class="text-nowrap">Since last month</span>
-              </p>
+              </p> -->
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-6 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -47,7 +77,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <!-- <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -67,8 +97,8 @@
               </p>
             </div>
           </div>
-        </div>
-        <div class="col-xl-3 col-lg-6">
+        </div> -->
+        <!-- <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -88,7 +118,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -99,7 +129,7 @@
       <div class="card bg-gradient-default shadow">
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
-            <div class="col">
+            <div class="col-md-3">
               <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
               <h2 class="text-white mb-0">Currency value</h2>
             </div>
@@ -140,33 +170,53 @@
                 </ul>
               </div>
             </div> -->
-            <div  class="dropdown" mdbDropdown>
-              <button mdbDropdownToggle mdbBtn color="primary" class="dropdown-toggle waves-light"
-                type="button">
-                Currency
-              </button>
-              <div class="dropdown-menu dropdown-primary">
-                <a class="dropdown-item" *ngFor="let currency of currencies">{{currency}}</a>
-              </div>
+
+
+            <div class="col-md-3">
+              <mat-form-field >
+                <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency" name="Currency" >
+                  <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="secondaryCurrency === currency">
+                    {{currency}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-            <div  class="dropdown" mdbDropdown>
-              <button mdbDropdownToggle mdbBtn color="primary" class="dropdown-toggle waves-light"
-                type="button">
-                Channel
-              </button>
-              <div class="dropdown-menu dropdown-primary">
-                <a class="dropdown-item" *ngFor="let currency of currencies">{{currency}}</a>
-              </div>
+
+            <div class="col-md-3">
+              <mat-form-field >
+                <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency" name="Currency">
+                  <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="primaryCurrency === currency">
+                    {{currency}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-3 " >
+              <mat-form-field >
+                <mat-select  class="mat-select-red" placeholder="Vendors"  [(ngModel)]="vendorValue" name="vendors" >
+                  <mat-option *ngFor="let vendor of vendors" [value]="vendor" >{{vendor}}</mat-option>
+
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
         </div>
         <div class="card-body">
           <!-- Chart -->
           <div class="chart">
-            <!-- Chart wrapper -->
-            <!-- <canvas id="chart-sales" class="chart-canvas"></canvas> -->
-            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+            <canvas baseChart
+            [labels]="lineChartLabels"
+
+    [datasets]="lineChartData"
+    [colors]="lineChartColors"
+
+
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins">
+  </canvas>
+
           </div>
         </div>
       </div>
@@ -184,8 +234,8 @@
         <div class="card-body">
           <!-- Chart -->
           <div class="chart">
-            <canvas id="chart-orders" class="chart-canvas"></canvas>
-            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <canvas id="chart-orders" class="chart-canvas" ></canvas>
+
           </div>
         </div>
       </div>

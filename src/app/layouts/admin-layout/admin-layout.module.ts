@@ -1,3 +1,5 @@
+import { ExchangeRatesService } from './../../services/exchange-rates.service';
+
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -20,6 +22,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -34,7 +40,11 @@ import { MatInputModule } from '@angular/material/input';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ChartsModule
+
   ],
   declarations: [
     DashboardComponent,
@@ -42,6 +52,9 @@ import { MatInputModule } from '@angular/material/input';
     TransactionHistoryComponent,
     CurrencyExchangeComponent,
     MapsComponent
+  ] ,
+  providers:[
+    ExchangeRatesService
   ]
 })
 
