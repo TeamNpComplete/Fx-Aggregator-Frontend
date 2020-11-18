@@ -10,16 +10,16 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registrationFailed : Boolean = false;
+  registrationFailed: Boolean = false;
 
-  constructor(private router : Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
 
   }
 
   ngOnInit() {
   }
 
-  onSubmit(form : NgForm) {
+  onSubmit(form: NgForm) {
     console.log(form.value);
     this.registrationFailed = false;
     let registrationSubscription = this.authenticationService.register(form.value.name, form.value.email, form.value.password).subscribe(

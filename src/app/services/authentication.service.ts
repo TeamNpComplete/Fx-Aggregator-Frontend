@@ -14,7 +14,7 @@ export class AuthenticationService {
     constructor(private http : HttpClient) { }
 
     login(email : String, password : String) {
-        let requestUrl = apiConfiguration.host + apiConfiguration.usersRoute + `/login`;
+        let requestUrl = apiConfiguration.authenticationHost + apiConfiguration.usersLoginRoute;
 
         let obj  = {
             email : email,
@@ -25,7 +25,7 @@ export class AuthenticationService {
     }
 
     register(name : String, email : String, password : String ) {
-        let requestUrl = apiConfiguration.host + apiConfiguration.usersRoute + `/register`;
+        let requestUrl = apiConfiguration.authenticationHost + apiConfiguration.usersRegistrationRoute;
         
         return this.http.post(requestUrl, { name : name, email : email, password : password});
     }

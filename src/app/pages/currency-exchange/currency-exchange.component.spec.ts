@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IconsComponent } from './currency-exchange.component';
+import { CurrencyExchangeComponent } from './currency-exchange.component';
 
 describe('IconsComponent', () => {
-  let component: IconsComponent;
-  let fixture: ComponentFixture<IconsComponent>;
+  let component: CurrencyExchangeComponent;
+  let fixture: ComponentFixture<CurrencyExchangeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IconsComponent ]
+      declarations: [CurrencyExchangeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IconsComponent);
+    fixture = TestBed.createComponent(CurrencyExchangeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

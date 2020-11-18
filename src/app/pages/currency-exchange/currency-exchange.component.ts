@@ -20,7 +20,7 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
 
   currencyRates: ExchangeRateModel[] = [];
 
-  displayedColumns: String[] = ['vendor', 'exchangeRate', 'amount'];
+  displayedColumns: String[] = ['vendor', 'rate', 'amount'];
 
   currencies: String[] = appConfiguration.supportedCurrencies;
   dataSource = new MatTableDataSource(this.currencyRates);
@@ -56,7 +56,7 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
       (response: ExchangeRateModel[]) => {
 
         response.forEach((exchangeRate: ExchangeRateModel) => {
-          let convertedAmount = Number(exchangeRate.exchangeRate) * Number(this.amountToConvert);
+          let convertedAmount = Number(exchangeRate.rate) * Number(this.amountToConvert);
           exchangeRate.amount = convertedAmount;
         });
 
@@ -66,8 +66,8 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
       (error) => {
         console.log(error);
         this.currencyRates = [
-          { vendor: 'European Central Bank', exchangeRate: 1.9, amount: 1.9 * 10000 },
-          { vendor: 'Union Bank Of Switzerland', exchangeRate: 2.0, amount: 2.0 * 10000 }
+          { vendor: 'European Central Bank', rate: 1.9, amount: 1.9 * 10000 },
+          { vendor: 'Union Bank Of Switzerland', rate: 2.0, amount: 2.0 * 10000 }
         ];
         this.setDataSourceAttributes();
       }

@@ -2,7 +2,7 @@ import { AuthenticationService } from './../../services/authentication.service';
 import { ExchangeRatesService } from './../../services/exchange-rates.service';
 
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -16,18 +16,16 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TransactionHistoryComponent } from '../../pages/transaction-history/transaction-history';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-// import { ToastrModule } from 'ngx-toastr';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ChartsModule } from 'ng2-charts';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
 @NgModule({
   imports: [
@@ -55,12 +53,12 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
     TransactionHistoryComponent,
     CurrencyExchangeComponent,
     MapsComponent
-  ] ,
-  providers:[
+  ],
+  providers: [
     AuthenticationService,
     ExchangeRatesService,
     AuthGuardService
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

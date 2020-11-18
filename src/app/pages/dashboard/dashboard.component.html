@@ -7,12 +7,10 @@
           <div class="card shadow">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
-                <div class="row">
-                  <span style="padding-left: 2%;">Maximum and Minimum Values</span>
+                <div class="row ml-1">
+                  <span>Maximum and Minimum Values</span>
                 </div>
                 <div class="row d-flex align-items-center">
-
-
                   <div class="col-md-3">
                     <mat-form-field style="width: 100%;">
                       <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency1" name="Currency1">
@@ -34,8 +32,9 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4" style="width: 100%;">
-                    <mat-form-field>
+
+                  <div class="col-md-4" >
+                    <mat-form-field style="width: 100%;">
                       <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate placeholder="Start date" style="font-size: small;" [(ngModel)]="startDate"
                           name="sd">
@@ -46,11 +45,10 @@
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-date-range-picker date-range-picker #picker></mat-date-range-picker>
                     </mat-form-field>
-
                   </div>
 
-                  <div class="col-md-2 d-flex justify-content-center" style="width: 100%;">
-                    <button mat-raised-button color="primary">Check</button>
+                  <div class="col-md-2 d-flex justify-content-center">
+                    <button mat-raised-button color="primary" style="width: 100%;">Check</button>
                   </div>
                   </div>
              </div>
@@ -62,18 +60,13 @@
             <div class="card">
               <div class="card-body">
                 <div>
-
                 </div>
-
                 <div class="row d-flex align-items-center">
-
-
                   <h5 class="card-title text-uppercase text-muted mb-0"> Maximum Value</h5>
                 </div>
                 <div class="row d-flex align-items-center">
                   <h6 class="card-title text-uppercase  mb-0">Vendor</h6>
                 </div>
-
                 <div class="row d-flex align-items-center">
                   <div class="col-sm-5">
                     <h2>23</h2>
@@ -84,14 +77,12 @@
           </div>
         </div>
 
-
         <div class="col-xl-2 col-lg-2">
           <div class="card shadow" style="height:100%">
             <div class="card">
               <div class="card-body">
                 <div>
                   </div>
-
                 <div class="row d-flex align-items-center">
                     <h5 class="card-title text-uppercase text-muted mb-0"> Minimum Value</h5>
                 </div>
@@ -108,7 +99,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -116,15 +106,13 @@
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col-xl-8 mb-5 mb-xl-0">
-      <div class="card bg-gradient-default shadow">
+      <div class="card bg-gradient-white shadow">
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
             <div class="col-md-3">
-              <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-              <h2 class="text-white mb-0">Currency value</h2>
+              <h6 class="text-uppercase ls-1 mb-1">Overview</h6>
+              <h2 class="mb-0">Currency value</h2>
             </div>
-
-
 
             <div class="col-md-3">
               <mat-form-field>

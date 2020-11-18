@@ -18,7 +18,8 @@
                 <div class="col-lg-4">
                   <mat-form-field style="width: 100%">
                     <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency" name="Currency">
-                      <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="secondaryCurrency === currency">
+                      <mat-option *ngFor="let currency of currencies" [value]="currency"
+                        [disabled]="secondaryCurrency === currency">
                         {{currency}}
                       </mat-option>
                     </mat-select>
@@ -27,7 +28,8 @@
                 <div class="col-lg-4">
                   <mat-form-field style="width: 100%">
                     <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency" name="Currency">
-                      <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="primaryCurrency === currency">
+                      <mat-option *ngFor="let currency of currencies" [value]="currency"
+                        [disabled]="primaryCurrency === currency">
                         {{currency}}
                       </mat-option>
                     </mat-select>
@@ -43,7 +45,8 @@
                 </div>
               </div>
               <div class="row mt-4 justify-content-md-center">
-                <button style="width:30%" class="btn btn-primary" (click)="onCheckRatesClicked()" [disabled]="!primaryCurrency || !secondaryCurrency">Check Rates</button>
+                <button style="width:30%" class="btn btn-primary" (click)="onCheckRatesClicked()"
+                  [disabled]="!primaryCurrency || !secondaryCurrency">Check Rates</button>
               </div>
             </div>
           </div>
@@ -70,18 +73,20 @@
                 <td style="font-size: 100%;" mat-cell *matCellDef="let element"> {{element.vendor}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="exchangeRate" >
+              <ng-container matColumnDef="rate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 100%;"> Exchange Rate </th>
-                <td style="font-size: 100%;" mat-cell *matCellDef="let element"> {{element.exchangeRate}} </td>
+                <td style="font-size: 100%;" mat-cell *matCellDef="let element"> {{element.rate | number : '1.4-4'}}
+                </td>
               </ng-container>
 
-              <ng-container matColumnDef="amount" >
+              <ng-container matColumnDef="amount">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 100%; "> Amount </th>
-                <td style="font-size: 100%;" mat-cell *matCellDef="let element"> {{element.amount}}  </td>
+                <td style="font-size: 100%;" mat-cell *matCellDef="let element"> {{element.amount | number : '1.4-4'}}
+                </td>
               </ng-container>
 
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
           </div>

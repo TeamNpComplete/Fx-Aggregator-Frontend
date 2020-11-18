@@ -1,5 +1,5 @@
 export interface ExchangeRateModel {
     vendor: String,
-    exchangeRate: Number,
+    rate: Number,
     amount: Number
 }
