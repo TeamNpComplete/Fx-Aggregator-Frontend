@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/authentication.service';
 import { ExchangeRatesService } from './../../services/exchange-rates.service';
 
 import { NgModule } from '@angular/core';
@@ -26,7 +27,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ChartsModule } from 'ng2-charts';
-
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   imports: [
     CommonModule,
@@ -43,7 +44,8 @@ import { ChartsModule } from 'ng2-charts';
     MDBBootstrapModule.forRoot(),
     MatDatepickerModule,
     MatNativeDateModule,
-  ChartsModule
+    ChartsModule,
+    MatButtonModule
 
   ],
   declarations: [
@@ -54,6 +56,7 @@ import { ChartsModule } from 'ng2-charts';
     MapsComponent
   ] ,
   providers:[
+    AuthenticationService,
     ExchangeRatesService
   ]
 })

@@ -6,10 +6,10 @@ import { apiConfiguration } from '../config/api.config';
     providedIn : 'root'
 })
 export class AuthenticationService {
-    
+
     name : String;
     email : String;
-    private token : String = "";
+    token : String = "";
 
     constructor(private http : HttpClient) { }
 
@@ -23,7 +23,7 @@ export class AuthenticationService {
 
         this.http.post(requestUrl, obj).subscribe(
             (response) => { this.token = response['token']; console.log(response); },
-            (error) => { console.log(error); }, 
+            (error) => { console.log(error); },
         )
     }
 
