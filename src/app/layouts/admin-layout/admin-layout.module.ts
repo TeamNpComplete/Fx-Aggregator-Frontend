@@ -28,6 +28,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ChartsModule } from 'ng2-charts';
 import {MatButtonModule} from '@angular/material/button';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -57,7 +58,8 @@ import {MatButtonModule} from '@angular/material/button';
   ] ,
   providers:[
     AuthenticationService,
-    ExchangeRatesService
+    ExchangeRatesService,
+    AuthGuardService
   ]
 })
 
