@@ -3,13 +3,13 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angul
 import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
-export class AuthGuardService implements CanActivate{
-    
-    constructor(private authenticationService : AuthenticationService) {
+export class AuthGuardService implements CanActivate {
+
+    constructor(private authenticationService: AuthenticationService) {
 
     }
 
-    canActivate(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : boolean{
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         return AuthenticationService.isAuthenticated();
     }
 }

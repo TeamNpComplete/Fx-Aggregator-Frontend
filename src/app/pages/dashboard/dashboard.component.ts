@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
-  public currencyArray;
+  public currencyArray = [10, 12, 12, 34, 45, 22, 11, 34, 45, 23, 32, 12, 15, 56, 10, 12, 12, 34, 45, 22, 11, 34, 45, 23, 32, 12, 15, 56];
 
 
   primaryCurrency: String = null;
@@ -88,13 +88,13 @@ public lineChartData: ChartDataSets[];
 
     for(let i=30; i>0; i--){
       var day=new Date(this.year, this.month - 1, this.date - i);
-      console.log(day);
       this.dates.push(day.getDate());
     }
+
     this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrency,this.secondaryCurrency,this.vendorValue).subscribe(
       (response) =>
       {
-           this.currencyArray = response;
+           //this.currencyArray = response;
       },
       (error) => {
 
@@ -112,25 +112,7 @@ public lineChartData: ChartDataSets[];
     ];
     this.data = this.datasets[0];
 
-
     var chartOrders = document.getElementById('chart-orders');
-
-    // parseOptions(Chart, chartOptions());
-
-
-    // var ordersChart = new Chart(chartOrders, {
-    //   type: 'bar',
-    //   options: chartExample2.options,
-    //   data: chartExample2.data
-    // });
-
-    // var chartSales = document.getElementById('chart-sales');
-
-    // this.salesChart = new Chart(chartSales, {
-		// 	type: 'line',
-		// 	options: chartExample1.options,
-		// 	data: chartExample1.data
-		// });
 
     this.amountToConvert
 

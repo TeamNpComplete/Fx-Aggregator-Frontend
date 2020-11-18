@@ -10,21 +10,21 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  email : String;
-  password : String;
-  invalidCredentials : Boolean = false;
+  email: String;
+  password: String;
+  invalidCredentials: Boolean = false;
 
-  constructor(private router : Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
 
   }
 
   ngOnInit() {
   }
   ngOnDestroy() {
-    
+
   }
 
-  onSubmit(form : NgForm) {
+  onSubmit(form: NgForm) {
     console.log(form.value);
     this.invalidCredentials = false;
     let loginSubscription = this.authenticationService.login(form.value.email, form.value.password).subscribe(
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         loginSubscription.unsubscribe();
         console.log(AuthenticationService.isAuthenticated());
         this.router.navigate(['/dashboard']);
-      }, 
+      },
       (error) => {
         this.invalidCredentials = true;
         console.log('Authentication Failed !');

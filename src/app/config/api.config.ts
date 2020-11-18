@@ -1,6 +1,8 @@
 export let apiConfiguration = {
-    host : "http://localhost:8080",
-    usersRoute : "/api/users",
-    exchangeRateRoute  : "/api/exchange_rates",
-    exchangeRateForRangeRoute : "/api/exchange_rates/range"
+    exchangeRateHost: "http://localhost:8080",
+    authenticationHost: "http://localhost:8081",
+    usersLoginRoute: "/api/users/login",
+    usersRegistrationRoute: "/api/users/register",
+    exchangeRateRoute: "/api/exchange_rates",
+    exchangeRateForRangeRoute: "/api/exchange_rates/range"
 }
