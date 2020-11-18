@@ -9,7 +9,7 @@ export class AuthenticationService {
 
     name : String;
     email : String;
-    token : String = "";
+    static token : String = "";
 
     constructor(private http : HttpClient) { }
 
@@ -21,21 +21,16 @@ export class AuthenticationService {
             password : password
         }
 
-        this.http.post(requestUrl, obj).subscribe(
-            (response) => { this.token = response['token']; console.log(response); },
-            (error) => { console.log(error); },
-        )
+        return this.http.post(requestUrl, obj);
     }
 
     register(name : String, email : String, password : String ) {
-        let requestUrl = apiConfiguration.host + apiConfiguration.usersRoute + `/login`;
-        this.http.post(requestUrl, { name : name, email : email, password : password}).subscribe(
-            (response) => { this.token = response['token']; },
-            (error) => { console.log(error); }
-        )
+        let requestUrl = apiConfiguration.host + apiConfiguration.usersRoute + `/register`;
+        
+        return this.http.post(requestUrl, { name : name, email : email, password : password});
     }
 
-    getToken() {
-        return this.token;
+    static isAuthenticated() {
+        return AuthenticationService.token != null && AuthenticationService.token != "";
     }
 }
