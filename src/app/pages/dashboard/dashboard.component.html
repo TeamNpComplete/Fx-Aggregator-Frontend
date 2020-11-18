@@ -3,22 +3,19 @@
     <div class="header-body">
 
       <div class="row">
-        <div class="col-xl-6 col-lg-6">
+        <div class="col-xl-12 col-lg-12" >
+          <div class="card shadow">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-3">
+              <div class="col-sm-3">
                   <h5 class="card-title text-uppercase text-muted mb-0">Currency</h5>
                   <span class="h2 font-weight-bold mb-0">23</span>
                 </div>
-                <!-- <div class="col-auto">
-                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                    <i class="fas fa-chart-bar"></i>
-                  </div>
-                </div> -->
-                <div  class="col-md-3">
-                  <mat-form-field style="width: 30%;" >
-                    <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency1" name="Currency1" >
+
+                <div  class="col-sm-2" >
+                  <mat-form-field style="width: 100%;" >
+                    <mat-select placeholder="C1" [(ngModel)]="primaryCurrency1" name="Currency1" >
                       <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="secondaryCurrency === currency">
                         {{currency}}
                       </mat-option>
@@ -26,16 +23,16 @@
                   </mat-form-field>
                 </div>
 
-                <div class="col-md-3">
-                  <mat-form-field  style="width: 30%;">
-                    <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency1" name="Currency1">
+                <div class="col-sm-2">
+                  <mat-form-field  style="width: 100%;">
+                    <mat-select placeholder="C2" [(ngModel)]="secondaryCurrency1" name="Currency1">
                       <mat-option *ngFor="let currency of currencies" [value]="currency" [disabled]="primaryCurrency === currency">
                         {{currency}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <div class="col-sm-5">
                 <mat-form-field >
                     <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Start date" style="font-size: small;" >
@@ -56,7 +53,8 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-6 col-lg-6">
+        </div>
+        <!-- <div class="col-xl-6 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -76,7 +74,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
