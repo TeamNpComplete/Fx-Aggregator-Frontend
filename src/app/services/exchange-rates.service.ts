@@ -12,7 +12,7 @@ export class ExchangeRatesService {
   getExchangeRate(fromCurrency: String, toCurrency: String) {
     let header : HttpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
-      'Authorization' : `Bearer ${this.authenticationService.token}`
+      'Authorization' : `Bearer ${AuthenticationService.token}`
     });
 
     let requestUrl = apiConfiguration.host + apiConfiguration.exchangeRateRoute + `?from=${fromCurrency}&to=${toCurrency}`;
@@ -22,7 +22,7 @@ export class ExchangeRatesService {
   getExchangeRateForLastMonth(fromCurrency: String, toCurrency: String, vendor : String) {
     let header : HttpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
-      'Authorization' : `Bearer ${this.authenticationService.token}`
+      'Authorization' : `Bearer ${AuthenticationService.token}`
     });
 
     let requestUrl = apiConfiguration.host + apiConfiguration.exchangeRateRoute + `/${vendor}?from=${fromCurrency}&to=${toCurrency}`;
@@ -32,7 +32,7 @@ export class ExchangeRatesService {
   getExchangeRateForRange(fromCurrency: String, toCurrency: String, startDate : Date, endDate : Date) {
     let header : HttpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
-      'Authorization' : `Bearer ${this.authenticationService.token}`
+      'Authorization' : `Bearer ${AuthenticationService.token}`
     });
 
     let requestUrl = apiConfiguration.host + apiConfiguration.exchangeRateForRangeRoute +
