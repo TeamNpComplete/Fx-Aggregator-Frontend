@@ -12,7 +12,7 @@ import { ExchangeRateModel } from 'src/app/models/exchange-rate.model';
 import { ExchangeRatesService } from '../../services/exchange-rates.service';
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-  
+
 
 // import {
 //   chartOptions,
@@ -34,12 +34,12 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
-  public currencyArray = [10, 12, 12, 34, 45, 22, 11, 34, 45, 23, 32, 12, 15, 56, 10, 12, 12, 34, 45, 22, 11, 34, 45, 23, 32, 12, 15, 56];
+  public currencyArray = [88.011, 88.011, 88.4825, 88.0795, 88.186, 88.186, 88.186, 88.066, 87.562, 87.6665, 87.638, 88.0085, 88.0085, 88.0085, 87.7405, 87.1955, 87.0695, 86.7555, 87.1115, 87.1115, 87.1115, 87.0865, 86.804, 87.1635, 87.5485, 87.3245, 87.3245, 87.3245, 87.112, 87.3745];
 
 
-  primaryCurrency: String = null;
-  secondaryCurrency: String = null;
-  vendorValue: String = null;
+  primaryCurrency: String = 'USD';
+  secondaryCurrency: String = 'INR';
+  vendorValue: String = 'European Central Bank';
   viewExchangeRateTable: Boolean = false;
   amountToConvert: Number = null;
   currencyRates: ExchangeRateModel[] = [];
