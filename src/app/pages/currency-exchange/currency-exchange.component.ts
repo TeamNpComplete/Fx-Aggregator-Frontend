@@ -13,7 +13,7 @@ import { ExchangeRatesService } from '../../services/exchange-rates.service';
 })
 export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
 
-  primaryCurrency: String = null;
+  primaryCurrency: String = 'USD';
   secondaryCurrency: String = null;
   viewExchangeRateTable: Boolean = false;
   amountToConvert: Number = null;
@@ -21,10 +21,21 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   currencyRates: ExchangeRateModel[] = [];
 
   displayedColumns: String[] = ['vendor', 'rate', 'amount'];
-
+  // ['USD', 'EUR', 'INR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF'],
   currencies: String[] = appConfiguration.supportedCurrencies;
   dataSource = new MatTableDataSource(this.currencyRates);
   public copy: string;
+   currencyMap = new Map([
+    [this.currencies[0], "flag-icon flag-icon-us"],
+    [this.currencies[1], ""],
+    [this.currencies[2], "flag-icon flag-icon-in"],
+    [this.currencies[3], "flag-icon flag-icon-jp"],
+    [this.currencies[4], "flag-icon flag-icon-gb"],
+    [this.currencies[5], "flag-icon flag-icon-cn"],
+    [this.currencies[6], "flag-icon flag-icon-au"],
+    [this.currencies[7], "flag-icon flag-icon-ca"],
+    [this.currencies[8], "flag-icon flag-icon-ch"]
+]);
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -39,6 +50,9 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.primaryCurrency = 'USD';
+    this.secondaryCurrency = 'INR';
+    //this.viewExchangeRateTable = true;
   }
 
   ngAfterViewInit() {

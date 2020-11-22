@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ChartsModule } from 'ng2-charts';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { NgxFlagIconCssModule } from 'ngx-flag-icon-css'
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +45,8 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
     MatDatepickerModule,
     MatNativeDateModule,
     ChartsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxFlagIconCssModule
 
   ],
   declarations: [

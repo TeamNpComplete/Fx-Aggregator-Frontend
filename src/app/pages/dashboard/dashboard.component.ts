@@ -1,7 +1,7 @@
 ///import { ExchangeRatesService } from './../../services/exchange-rates.service';
 
 // import { ExchangeRate } from './../currency-exchange/currency-exchange.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 // import Chart from 'chart.js';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -27,7 +27,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   styleUrls: ['./dashboard.component.scss'],
   providers: [ExchangeRatesService]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit , AfterViewInit{
 
   public datasets: any;
   public data: any;
@@ -37,22 +37,23 @@ export class DashboardComponent implements OnInit {
   public currencyArray = [88.011, 88.011, 88.4825, 88.0795, 88.186, 88.186, 88.186, 88.066, 87.562, 87.6665, 87.638, 88.0085, 88.0085, 88.0085, 87.7405, 87.1955, 87.0695, 86.7555, 87.1115, 87.1115, 87.1115, 87.0865, 86.804, 87.1635, 87.5485, 87.3245, 87.3245, 87.3245, 87.112, 87.3745];
 
 
-  primaryCurrency: String = 'USD';
-  secondaryCurrency: String = 'INR';
-  vendorValue: String = 'European Central Bank';
-  viewExchangeRateTable: Boolean = false;
-  amountToConvert: Number = null;
-  currencyRates: ExchangeRateModel[] = [];
+  // primaryCurrency: String = 'USD';
+  // secondaryCurrency: String = 'INR';
+  // vendorValue: String = 'European Central Bank';
+
+
+  primaryCurrencyGraph: String = "USD";
+  secondaryCurrencyGraph: String = null;
+  vendorValue: String = null;
   primaryCurrency1: String = null;
   secondaryCurrency1: String = null;
   startDate: Date = null;
   endDate: Date = null;
-  displayedColumns: String[] = ['vendor', 'exchangeRate', 'amount'];
 
   currencies: String[] = appConfiguration.supportedCurrencies;
   vendors : String[] = appConfiguration.supportedVendors;
-  dataSource = new MatTableDataSource(this.currencyRates);
 
+  public copy: string;
   public lineChartLabels: Label[];
   // public lineChartOptions: (ChartOptions & { annotation: any }) = {
   //   responsive: true,
@@ -74,10 +75,7 @@ export class DashboardComponent implements OnInit {
  dates = [];
 
 
-constructor(private exchangeRatesService : ExchangeRatesService)
-{
 
-}
 
 
 public lineChartData: ChartDataSets[];
@@ -85,21 +83,21 @@ public lineChartData: ChartDataSets[];
 
   ngOnInit() {
 
-
+    this.primaryCurrencyGraph = "USD";
     for(let i=30; i>0; i--){
       var day=new Date(this.year, this.month - 1, this.date - i);
       this.dates.push(day.getDate());
     }
 
-    this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrency,this.secondaryCurrency,this.vendorValue).subscribe(
-      (response) =>
-      {
-           //this.currencyArray = response;
-      },
-      (error) => {
+    // this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrency,this.secondaryCurrency,this.vendorValue).subscribe(
+    //   (response) =>
+    //   {
+    //        //this.currencyArray = response;
+    //   },
+    //   (error) => {
 
-      }
-     );
+    //   }
+    //  );
 
     this.lineChartData= [
       { data: this.currencyArray,
@@ -114,7 +112,11 @@ public lineChartData: ChartDataSets[];
 
     var chartOrders = document.getElementById('chart-orders');
 
-    this.amountToConvert
+
+
+  }
+
+  ngAfterViewInit() {
 
   }
 
@@ -124,4 +126,37 @@ public lineChartData: ChartDataSets[];
   }
 
 
+
+
+  // setDataSourceAttributes() {
+  //   this.dataSource = new MatTableDataSource(this.currencyRates);
+  //   this.dataSource.sort = this.sort;
+  // }
+
+  // onCheckRatesClicked() {
+  //   this.viewExchangeRateTable = true;
+  //   this.exchangeRatesService.getExchangeRate(this.primaryCurrency, this.secondaryCurrency).subscribe(
+  //     (response: ExchangeRateModel[]) => {
+
+  //       response.forEach((exchangeRate: ExchangeRateModel) => {
+  //         let convertedAmount = Number(exchangeRate.rate) * Number(this.amountToConvert);
+  //         exchangeRate.amount = convertedAmount;
+  //       });
+
+  //       this.currencyRates = response;
+  //       this.setDataSourceAttributes();
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.currencyRates = [
+  //         { vendor: 'European Central Bank', rate: 1.9, amount: 1.9 * 10000 },
+  //         { vendor: 'Union Bank Of Switzerland', rate: 2.0, amount: 2.0 * 10000 }
+  //       ];
+  //       this.setDataSourceAttributes();
+  //     }
+  //   )
+  // }
+
+
 }
+

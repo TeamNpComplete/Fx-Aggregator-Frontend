@@ -1,107 +1,6 @@
-<div class="header pb-8 pt-5 pt-md-8">
-  <div class="container-fluid">
-    <div class="header-body">
+<app-icons></app-icons>
+<div class="header pt-5 pt-md-8">
 
-      <div class="row">
-        <div class="col-xl-8 col-lg-8">
-          <div class="card shadow">
-            <div class="card card-stats mb-4 mb-xl-0">
-              <div class="card-body">
-                <div class="row ml-1">
-                  <span>Maximum and Minimum Values</span>
-                </div>
-                <div class="row d-flex align-items-center">
-                  <div class="col-md-3">
-                    <mat-form-field style="width: 100%;">
-                      <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency1" name="Currency1">
-                        <mat-option *ngFor="let currency of currencies" [value]="currency"
-                          [disabled]="secondaryCurrency === currency">
-                          {{currency}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-3">
-                    <mat-form-field style="width: 100%;">
-                      <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency1" name="Currency1">
-                        <mat-option *ngFor="let currency of currencies" [value]="currency"
-                          [disabled]="primaryCurrency === currency">
-                          {{currency}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-4" >
-                    <mat-form-field style="width: 100%;">
-                      <mat-date-range-input [rangePicker]="picker">
-                        <input matStartDate placeholder="Start date" style="font-size: small;" [(ngModel)]="startDate"
-                          name="sd">
-                        <input matEndDate placeholder="End date" style="font-size: small;" [(ngModel)]="endDate"
-                          name="ed">
-                      </mat-date-range-input>
-
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-date-range-picker date-range-picker #picker></mat-date-range-picker>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-2 d-flex justify-content-center">
-                    <button mat-raised-button color="primary" style="width: 100%;">Check</button>
-                  </div>
-                  </div>
-             </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-2">
-          <div class="card shadow" style="height:100%">
-            <div class="card">
-              <div class="card-body">
-                <div>
-                </div>
-                <div class="row d-flex align-items-center">
-                  <h5 class="card-title text-uppercase text-muted mb-0"> Maximum Value</h5>
-                </div>
-                <div class="row d-flex align-items-center">
-                  <h6 class="card-title text-uppercase  mb-0">Vendor</h6>
-                </div>
-                <div class="row d-flex align-items-center">
-                  <div class="col-sm-5">
-                    <h2>23</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-2 col-lg-2">
-          <div class="card shadow" style="height:100%">
-            <div class="card">
-              <div class="card-body">
-                <div>
-                  </div>
-                <div class="row d-flex align-items-center">
-                    <h5 class="card-title text-uppercase text-muted mb-0"> Minimum Value</h5>
-                </div>
-                <div class="row d-flex align-items-center">
-                  <h6 class="card-title text-uppercase  mb-0">Vendor</h6>
-                </div>
-
-                <div class="row d-flex align-items-center">
-                  <div class="col-sm-5">
-                    <h2>23</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
@@ -115,10 +14,10 @@
             </div>
 
             <div class="col-md-3">
-              <mat-form-field>
-                <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency" name="Currency">
+              <mat-form-field style="width: 100%">
+                <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrencyGraph" name="Currency">
                   <mat-option *ngFor="let currency of currencies" [value]="currency"
-                    [disabled]="secondaryCurrency === currency">
+                    [disabled]="secondaryCurrencyGraph === currency">
                     {{currency}}
                   </mat-option>
                 </mat-select>
@@ -126,10 +25,10 @@
             </div>
 
             <div class="col-md-3">
-              <mat-form-field>
-                <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency" name="Currency">
+              <mat-form-field style="width: 100%">
+                <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrencyGraph" name="Currency">
                   <mat-option *ngFor="let currency of currencies" [value]="currency"
-                    [disabled]="primaryCurrency === currency">
+                    [disabled]="primaryCurrencyGraph === currency">
                     {{currency}}
                   </mat-option>
                 </mat-select>
@@ -137,7 +36,7 @@
             </div>
 
             <div class="col-md-3 ">
-              <mat-form-field>
+              <mat-form-field style="width: 100%">
                 <mat-select class="mat-select-red" placeholder="Vendors" [(ngModel)]="vendorValue" name="vendors">
                   <mat-option *ngFor="let vendor of vendors" [value]="vendor">{{vendor}}</mat-option>
 

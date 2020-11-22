@@ -5,31 +5,40 @@
   </div>
 </div>
 
-<div class="container-fluid mt--7" style="height: 100vh;">
+<div class="container-fluid mt--7">
 
   <div class="row  form-group">
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <h3 class="mb-0">Exchange Rates</h3>
+
+
           <div class="container">
             <div class="container">
               <div class="row">
                 <div class="col-lg-4">
                   <mat-form-field style="width: 100%">
                     <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency" name="Currency">
-                      <mat-option *ngFor="let currency of currencies" [value]="currency"
+                      <mat-option *ngFor="let currency of currencies" [value]= "currency"
                         [disabled]="secondaryCurrency === currency">
+                       <!-- <span>{{currency}} -> {{currencyMap.get(currency)}}</span> -->
+                        <span class={{currencyMap.get(currency)}}></span>
                         {{currency}}
+
+
                       </mat-option>
+
                     </mat-select>
                   </mat-form-field>
+
                 </div>
                 <div class="col-lg-4">
                   <mat-form-field style="width: 100%">
                     <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency" name="Currency">
                       <mat-option *ngFor="let currency of currencies" [value]="currency"
                         [disabled]="primaryCurrency === currency">
+                        <span class={{currencyMap.get(currency)}}></span>
                         {{currency}}
                       </mat-option>
                     </mat-select>
@@ -57,11 +66,9 @@
   <div class="row  form-group">
     <div class="col">
       <div class="card shadow">
-        <div class="card-header bg-transparent" style="height: 70vh;" *ngIf="!viewExchangeRateTable">
-          <h2 style="text-align: center; margin-top: 20%;">Please Select Currencies to Continue</h2>
-        </div>
 
-        <div class="card-header bg-transparent" style="height: 70vh;" *ngIf="viewExchangeRateTable">
+
+        <div class="card-header bg-transparent" *ngIf="viewExchangeRateTable">
 
           <h3 class="mb-3">Exchange Rates for {{primaryCurrency}} to {{secondaryCurrency}} </h3>
 
@@ -83,6 +90,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 100%; "> Amount </th>
                 <td style="font-size: 100%;" mat-cell *matCellDef="let element"> {{element.amount | number : '1.4-4'}}
                 </td>
+
               </ng-container>
 
 
