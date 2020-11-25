@@ -1,15 +1,37 @@
-<div class="header  pb-8 pt-5 pt-md-8">
-  <div class="container-fluid">
-    <div class="header-body">
-    </div>
-  </div>
+<div class="header  pb-8 pt-5 pt-md-6">
+
 </div>
-<!-- Page content -->
-<div class="container-fluid mt--7">
+
+<div class="container-fluid mt--7" style="height:100%">
   <div class="row">
     <div class="col">
       <div class="card shadow border-0">
+        <div class="row mt-1 ml-3">
+          <div class="col-md-3">
+            <mat-form-field style="width: 100%">
+              <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrencyPred" name="Currency">
+                <mat-option *ngFor="let currency of currencies" [value]="currency"
+                  [disabled]="secondaryCurrencyPred === currency">
+                  {{currency}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
+          <div class="col-md-3">
+            <mat-form-field style="width: 100%">
+              <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrencyPred" name="Currency">
+                <mat-option *ngFor="let currency of currencies" [value]="currency"
+                  [disabled]="primaryCurrencyPred === currency">
+                  {{currency}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <apx-chart [series]="series" [chart]="chart" [dataLabels]="dataLabels" [markers]="markers" [title]="title"
+          [fill]="fill" [yaxis]="yaxis" [xaxis]="xaxis" [tooltip]="tooltip" [autoUpdateSeries]="true"></apx-chart>
       </div>
     </div>
   </div>

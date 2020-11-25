@@ -1,3 +1,4 @@
+import { PredictionService } from './../../services/prediction.service';
 import { AuthenticationService } from './../../services/authentication.service';
 import { ExchangeRatesService } from './../../services/exchange-rates.service';
 
@@ -28,6 +29,8 @@ import { ChartsModule } from 'ng2-charts';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
 import { NgxFlagIconCssModule } from 'ngx-flag-icon-css'
+import { NgApexchartsModule } from "ng-apexcharts";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -46,8 +49,8 @@ import { NgxFlagIconCssModule } from 'ngx-flag-icon-css'
     MatNativeDateModule,
     ChartsModule,
     MatButtonModule,
-    NgxFlagIconCssModule
-
+    NgxFlagIconCssModule,
+    NgApexchartsModule
   ],
   declarations: [
     DashboardComponent,
@@ -59,7 +62,8 @@ import { NgxFlagIconCssModule } from 'ngx-flag-icon-css'
   providers: [
     AuthenticationService,
     ExchangeRatesService,
-    AuthGuardService
+    AuthGuardService,
+    PredictionService
   ]
 })
 

@@ -1,4 +1,4 @@
-///import { ExchangeRatesService } from './../../services/exchange-rates.service';
+// /import { ExchangeRatesService } from './../../services/exchange-rates.service';
 
 // import { ExchangeRate } from './../currency-exchange/currency-exchange.component';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
@@ -25,7 +25,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  providers: [ExchangeRatesService]
+
 })
 export class DashboardComponent implements OnInit , AfterViewInit{
 
@@ -37,14 +37,14 @@ export class DashboardComponent implements OnInit , AfterViewInit{
   public currencyArray = [88.011, 88.011, 88.4825, 88.0795, 88.186, 88.186, 88.186, 88.066, 87.562, 87.6665, 87.638, 88.0085, 88.0085, 88.0085, 87.7405, 87.1955, 87.0695, 86.7555, 87.1115, 87.1115, 87.1115, 87.0865, 86.804, 87.1635, 87.5485, 87.3245, 87.3245, 87.3245, 87.112, 87.3745];
 
 
-  // primaryCurrency: String = 'USD';
-  // secondaryCurrency: String = 'INR';
-  // vendorValue: String = 'European Central Bank';
+  primaryCurrency: String = 'USD';
+  secondaryCurrency: String = 'INR';
+  vendorValue: String = 'European Central Bank';
 
 
-  primaryCurrencyGraph: String = "USD";
+  primaryCurrencyGraph: String = null;
   secondaryCurrencyGraph: String = null;
-  vendorValue: String = null;
+  vendorValueGraph: String = null;
   primaryCurrency1: String = null;
   secondaryCurrency1: String = null;
   startDate: Date = null;
@@ -80,7 +80,10 @@ export class DashboardComponent implements OnInit , AfterViewInit{
 
 public lineChartData: ChartDataSets[];
 
+  constructor(private exchangeRatesService : ExchangeRatesService)
+  {
 
+  }
   ngOnInit() {
 
     this.primaryCurrencyGraph = "USD";
@@ -89,15 +92,19 @@ public lineChartData: ChartDataSets[];
       this.dates.push(day.getDate());
     }
 
-    // this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrency,this.secondaryCurrency,this.vendorValue).subscribe(
-    //   (response) =>
-    //   {
-    //        //this.currencyArray = response;
-    //   },
-    //   (error) => {
-
-    //   }
-    //  );
+    this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrency,this.secondaryCurrency,this.vendorValue).subscribe(
+      (response) =>
+      {
+           this.currencyArray = [];
+           for(let obj in response)
+           {
+              this.currencyArray.push(obj["rate"]);
+           }
+      },
+      (error) => {
+        console.log(error);
+      }
+     );
 
     this.lineChartData= [
       { data: this.currencyArray,
