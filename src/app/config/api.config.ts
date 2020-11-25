@@ -6,6 +6,7 @@ export let apiConfiguration = {
     usersRegistrationRoute: "/api/users/register",
     exchangeRateRoute: "/api/exchange_rates",
     exchangeRateForRangeRoute: "/api/exchange_rates/range",
+    lastMonthRoute : "/api/exchange_rates/last_month",
     predictionRoute: "/predict"
 
 }

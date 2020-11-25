@@ -14,15 +14,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: String;
   invalidCredentials: Boolean = false;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
-  }
+  ngOnInit() { }
 
-  ngOnInit() {
-  }
-  ngOnDestroy() {
-
-  }
+  ngOnDestroy() { }
 
   onSubmit(form: NgForm) {
     console.log(form.value);

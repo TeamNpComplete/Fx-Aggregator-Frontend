@@ -24,7 +24,7 @@ export class ExchangeRatesService {
       'Authorization': `Bearer ${AuthenticationService.token}`
     });
 
-    let requestUrl = apiConfiguration.exchangeRateHost + apiConfiguration.exchangeRateRoute + `/${vendor}?from=${fromCurrency}&to=${toCurrency}`;
+    let requestUrl = apiConfiguration.exchangeRateHost + apiConfiguration.lastMonthRoute + `?from=${fromCurrency}&to=${toCurrency}&vendor=${vendor}`;
     return this.http.get(requestUrl, { headers: header });
   }
 

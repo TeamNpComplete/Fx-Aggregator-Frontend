@@ -1,4 +1,4 @@
-<app-icons (currenciesChanged) = "onCurrencyCodeChanged($event)"></app-icons>
+<app-icons (currenciesChanged)="onCurrencyCodeChanged($event)"></app-icons>
 <div class="header pt-5 pt-md-8">
 
 </div>
@@ -39,7 +39,6 @@
               <mat-form-field style="width: 100%">
                 <mat-select class="mat-select-red" placeholder="Vendors" [(ngModel)]="vendorValue" name="vendors">
                   <mat-option *ngFor="let vendor of vendors" [value]="vendor">{{vendor}}</mat-option>
-
                 </mat-select>
               </mat-form-field>
             </div>
@@ -68,9 +67,9 @@
           </div>
         </div>
         <div class="card-body">
-           <div class="chart">
+          <div class="chart">
             <canvas id="chart-orders" class="chart-canvas"></canvas>
-            </div>
+          </div>
         </div>
       </div>
     </div>
