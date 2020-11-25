@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { appConfiguration } from 'src/app/config/app.config';
@@ -19,6 +19,8 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   amountToConvert: Number = null;
 
   currencyRates: ExchangeRateModel[] = [];
+
+  @Output() currenciesChanged : EventEmitter<any> = new EventEmitter();
 
   displayedColumns: String[] = ['vendor', 'rate', 'amount'];
   // ['USD', 'EUR', 'INR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF'],
@@ -88,4 +90,10 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
     )
   }
 
+  onCurrencyChanged() {
+    this.currenciesChanged.emit({
+      'primary' : this.primaryCurrency,
+      'secondary' : this.secondaryCurrency
+    });
+  }
 }

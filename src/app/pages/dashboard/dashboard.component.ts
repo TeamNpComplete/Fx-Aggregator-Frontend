@@ -133,7 +133,12 @@ public lineChartData: ChartDataSets[];
   }
 
 
-
+  public onCurrencyCodeChanged(codes) {
+    this.primaryCurrency = codes['primary'];
+    this.secondaryCurrency = codes['secondary'];
+    this.primaryCurrencyGraph = codes['primary'];
+    this.secondaryCurrencyGraph = codes['secondary'];
+  }
 
   // setDataSourceAttributes() {
   //   this.dataSource = new MatTableDataSource(this.currencyRates);

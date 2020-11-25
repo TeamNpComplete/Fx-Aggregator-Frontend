@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <mat-form-field style="width: 100%">
-                    <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrency" name="Currency">
+                    <mat-select placeholder="Primary Currency" (selectionChange) = "onCurrencyChanged()" [(ngModel)]="primaryCurrency" name="Currency">
                       <mat-option *ngFor="let currency of currencies" [value]= "currency"
                         [disabled]="secondaryCurrency === currency">
                        <!-- <span>{{currency}} -> {{currencyMap.get(currency)}}</span> -->
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-lg-4">
                   <mat-form-field style="width: 100%">
-                    <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrency" name="Currency">
+                    <mat-select placeholder="Secondary Currency" (selectionChange) = "onCurrencyChanged()" [(ngModel)]="secondaryCurrency" name="Currency">
                       <mat-option *ngFor="let currency of currencies" [value]="currency"
                         [disabled]="primaryCurrency === currency">
                         <span class={{currencyMap.get(currency)}}></span>
