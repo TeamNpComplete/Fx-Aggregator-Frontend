@@ -68,7 +68,7 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
 
   onCheckRatesClicked() {
     this.viewExchangeRateTable = true;
-    this.exchangeRatesService.getExchangeRate(this.primaryCurrency, this.secondaryCurrency).subscribe(
+    this.exchangeRatesService.getExchangeRate(this.primaryCurrency.split(' ')[0], this.secondaryCurrency.split(' ')[0]).subscribe(
       (response: ExchangeRateModel[]) => {
 
         response.forEach((exchangeRate: ExchangeRateModel) => {
