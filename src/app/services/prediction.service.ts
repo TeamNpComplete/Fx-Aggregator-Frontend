@@ -10,6 +10,7 @@ import { AuthenticationService } from './authentication.service';
 export class PredictionService{
 
   static data = null;
+  static actualData = null;
   constructor(private http: HttpClient) {
 
    }
@@ -21,6 +22,15 @@ export class PredictionService{
     });
 
     let requestUrl = apiConfiguration.predictionHost + apiConfiguration.predictionRoute;
+    return this.http.get(requestUrl, { headers: header });
+  }
+
+  getActualRate() {
+    let header: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${AuthenticationService.token}`
+    });
+    let requestUrl = apiConfiguration.actualHost + apiConfiguration.actualRoute;
     return this.http.get(requestUrl, { headers: header });
   }
 

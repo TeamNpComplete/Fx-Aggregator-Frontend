@@ -7,7 +7,7 @@
         <div class="row mt-1 ml-3">
           <div class="col-md-3">
             <mat-form-field style="width: 100%">
-              <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrencyPred" name="Currency">
+              <mat-select placeholder="Primary Currency" (selectionChange)="primaryCurrencyValue($event.value)" [(ngModel)]="primaryCurrencyPred" name="Currency">
                 <mat-option *ngFor="let currency of currencies" [value]="currency"
                   [disabled]="secondaryCurrencyPred === currency">
                   {{currency}}
@@ -18,7 +18,7 @@
 
           <div class="col-md-3">
             <mat-form-field style="width: 100%">
-              <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrencyPred" name="Currency">
+              <mat-select placeholder="Secondary Currency" (selectionChange)="secondaryCurrencyValue($event.value)" [(ngModel)]="secondaryCurrencyPred" name="Currency">
                 <mat-option *ngFor="let currency of currencies" [value]="currency"
                   [disabled]="primaryCurrencyPred === currency">
                   {{currency}}
@@ -28,8 +28,17 @@
           </div>
 
         </div>
-        <apx-chart [series]="series" [chart]="chart" [dataLabels]="dataLabels" [markers]="markers" [title]="title"
-          [fill]="fill" [yaxis]="yaxis" [xaxis]="xaxis" [tooltip]="tooltip" [autoUpdateSeries]="true"></apx-chart>
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [dataLabels]="chartOptions.dataLabels"
+        [grid]="chartOptions.grid"
+        [stroke]="chartOptions.stroke"
+        [fill]="chartOptions.fill"
+        [tooltip]="chartOptions.tooltip"
+        [autoUpdateSeries]="true"
+      ></apx-chart>
       </div>
     </div>
   </div>
