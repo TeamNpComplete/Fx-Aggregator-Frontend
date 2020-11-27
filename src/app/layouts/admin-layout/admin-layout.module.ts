@@ -31,6 +31,7 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
 import { NgxFlagIconCssModule } from 'ngx-flag-icon-css'
 import { NgApexchartsModule } from "ng-apexcharts";
 import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon'
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     NgxFlagIconCssModule,
     NgApexchartsModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   declarations: [
     DashboardComponent,

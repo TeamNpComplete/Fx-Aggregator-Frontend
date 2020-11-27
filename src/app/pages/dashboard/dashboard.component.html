@@ -1,21 +1,21 @@
 <app-icons (currenciesChanged)="onCurrencyCodeChanged($event)"></app-icons>
-<div class="header pt-5 pt-md-8">
+<!-- <div class="header pt-5 pt-md-8">
 
-</div>
-<div class="container-fluid mt--7" style="height: 100%;">
+</div> -->
+<div class="container-fluid mt-3" style="height: 100%;">
   <div class="row" style="height: 100%;">
     <div class="col-xl-8 mb-5 mb-xl-0">
       <div class="card bg-gradient-white shadow">
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
             <div class="col-md-3">
-              <h6 class="text-uppercase ls-1 mb-1">Overview</h6>
-              <h2 class="mb-0">Currency value</h2>
+              <!-- <h6 class="text-uppercase ls-1 mb-1">Overview</h6> -->
+              <h2 class="mt--2">Currency Value</h2>
             </div>
 
             <div class="col-md-3">
               <mat-form-field style="width: 100%">
-                <mat-select placeholder="Primary Currency" [(ngModel)]="primaryCurrencyGraph" name="Currency">
+                <mat-select placeholder="Primary Currency" (selectionChange)="onGraphParamsChanged()" [(ngModel)]="primaryCurrencyGraph" name="Currency">
                   <mat-option *ngFor="let currency of currencies" [value]="currency"
                     [disabled]="secondaryCurrencyGraph === currency">
                     {{currency}}
@@ -26,7 +26,7 @@
 
             <div class="col-md-3">
               <mat-form-field style="width: 100%">
-                <mat-select placeholder="Secondary Currency" [(ngModel)]="secondaryCurrencyGraph" name="Currency">
+                <mat-select placeholder="Secondary Currency" (selectionChange)="onGraphParamsChanged()" [(ngModel)]="secondaryCurrencyGraph" name="Currency">
                   <mat-option *ngFor="let currency of currencies" [value]="currency"
                     [disabled]="primaryCurrencyGraph === currency">
                     {{currency}}
@@ -37,7 +37,7 @@
 
             <div class="col-md-3 ">
               <mat-form-field style="width: 100%">
-                <mat-select class="mat-select-red" placeholder="Vendors" [(ngModel)]="vendorValue" name="vendors">
+                <mat-select class="mat-select-red" placeholder="Vendors" (selectionChange)="onGraphParamsChanged()" [(ngModel)]="vendorValue" name="vendors">
                   <mat-option *ngFor="let vendor of vendors" [value]="vendor">{{vendor}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -56,8 +56,8 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-4" style="height: 100%;">
-      <div class="card " style="height: 100%;">
+    <div class="col-xl-4">
+      <div class="card bg-gradient-white shadow " style="height: 100%;">
         <div class="card-header bg-transparent" >
           <div class="row align-items-center">
             <div class="col">
@@ -71,7 +71,7 @@
           <div class="row  align-items-center ">
             <div class="col-sm-3">
               <mat-form-field style="width: 100%">
-                <mat-select placeholder="C1"  [(ngModel)]="primaryCurrencyBest" name="Currency">
+                <mat-select placeholder="C1"  (selectionChange)="onBestWorstRatesChanged()" [(ngModel)]="primaryCurrencyBest" name="Currency">
                   <mat-option *ngFor="let currency of currencies" [value]="currency"
                     [disabled]="secondaryCurrencyGraph === currency">
                     {{currency}}
@@ -82,7 +82,7 @@
 
             <div class="col-sm-3">
               <mat-form-field style="width: 100%">
-                <mat-select placeholder="C2" [(ngModel)]="secondaryCurrencyBest" name="Currency">
+                <mat-select placeholder="C2" (selectionChange)="onBestWorstRatesChanged()" [(ngModel)]="secondaryCurrencyBest" name="Currency">
                   <mat-option *ngFor="let currency of currencies" [value]="currency"
                     [disabled]="primaryCurrencyGraph === currency">
                     {{currency}}
@@ -93,9 +93,9 @@
             <div class="col-sm-6">
               <mat-form-field style="width:100%">
                 <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date" style="font-size: small;" [(ngModel)]="startDate"
+                  <input matStartDate (ngModelChange)="onBestWorstRatesChanged()" placeholder="Start date" style="font-size: small;" [(ngModel)]="startDate"
                     name="sd">
-                  <input matEndDate placeholder="End date" style="font-size: small;" [(ngModel)]="endDate" name="ed">
+                  <input matEndDate  (ngModelChange)="onBestWorstRatesChanged()" placeholder="End date" style="font-size: small;" [(ngModel)]="endDate" name="ed">
                 </mat-date-range-input>
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -114,17 +114,17 @@
               </div>
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-8">
+                  <div class="col-sm-7">
                     <div class="row">
                       <h2><span class="badge badge-light text-black-50">{{currencyMap.get(primaryCurrencyBest)}} -> {{currencyMap.get(secondaryCurrencyBest)}}</span></h2>
 
                     </div>
                     <div class="row">
-                      <h2><span class="badge badge-light text-black-50">European Central Bank</span></h2>
+                      <h2><span class="badge badge-light text-black-50">{{ bestVendor | uppercase}}</span></h2>
                     </div>
                   </div>
-                  <div class="col-sm-4 m--2  d-flex justify-content-center">
-                    <h1>76</h1>
+                  <div class="col-sm-5 m--2  d-flex justify-content-center">
+                    <h1> <span class="badge badge-success p-4" style="font-size: larger;">{{ bestRate | number : '1.4-4'}}</span></h1>
                   </div>
                 </div>
               </div>
@@ -146,16 +146,16 @@
               </div>
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-8">
+                  <div class="col-sm-7">
                     <div class="row">
                       <h2><span class="badge badge-light text-black-50">{{currencyMap.get(primaryCurrencyBest)}} -> {{currencyMap.get(secondaryCurrencyBest)}}</span></h2>
                     </div>
                     <div class="row">
-                      <h2><span class="badge badge-light text-black-50">European Central Bank</span></h2>
+                      <h2><span class="badge badge-light text-black-50">{{ worseVendor | uppercase}}</span></h2>
                     </div>
                   </div>
-                  <div class="col-sm-4 m--2  d-flex justify-content-center">
-                    <h1>76</h1>
+                  <div class="col-sm-5 m--2  d-flex justify-content-center">
+                    <h1><span class="badge badge-danger p-4" style="font-size: larger;">{{ worseRate | number : '1.4-4'}}</span></h1>
                   </div>
                 </div>
               </div>
