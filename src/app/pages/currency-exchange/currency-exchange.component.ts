@@ -91,9 +91,18 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
   onCurrencyChanged() {
+    this.onCheckRatesClicked();
     this.currenciesChanged.emit({
       'primary' : this.primaryCurrency,
       'secondary' : this.secondaryCurrency
     });
+  }
+
+  onAmountChanged() {
+    this.currencyRates.forEach((exchangeRate : ExchangeRateModel) => {
+      let convertedAmount = Number(exchangeRate.rate) * Number(this.amountToConvert);
+      exchangeRate.amount = convertedAmount;
+    });
+    this.setDataSourceAttributes();
   }
 }
