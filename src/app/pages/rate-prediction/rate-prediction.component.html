@@ -30,7 +30,7 @@
 
           <div class="col"  style="margin-left: 50%;"  style="width: 50%">
             <mat-form-field>
-              <mat-select placeholder="Predicted Values" (selectionChange)="previousPredictionValue($event.value)" [(ngModel)]="secondaryCurrencyPred" name="Currency">
+              <mat-select placeholder="Predicted Values" (selectionChange)="previousPredictionValue($event.value)" [(ngModel)]="predCurrenyPrev" name="Currency">
                 <mat-option *ngFor="let data of daysPredict" [value]="data"
                   >
                   {{data}} days ago

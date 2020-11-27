@@ -11,7 +11,9 @@ export class PredictionService{
 
   static data = null;
   static actualData = null;
-  static previousPredictedData = null;
+  static previousPredictedDataPrimary = null;
+  static previousPredictedDataSecondary = null;
+
   constructor(private http: HttpClient) {
 
    }
@@ -35,13 +37,13 @@ export class PredictionService{
     return this.http.get(requestUrl, { headers: header });
   }
 
-  getPreviousPredictionRate(pCurency:string,sCurrency:string)
+  getPreviousPredictionRate(pCurency:string)
   {
     let header: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${AuthenticationService.token}`
     });
-    let requestUrl = apiConfiguration.previousPredictionHost + apiConfiguration.previousPredictionRoute+"?prCur="+pCurency+"&secCur="+sCurrency;
+    let requestUrl = apiConfiguration.previousPredictionHost + apiConfiguration.previousPredictionRoute+"?cur="+pCurency;
     return this.http.get(requestUrl, { headers: header });
   }
 

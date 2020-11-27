@@ -36,6 +36,7 @@ export class MapsComponent implements OnInit {
   noOfActualDays = 5;
   minDay;
   maxDay;
+  predCurrenyPrev: string = null;
   daysPredict = [1,3,5,7,10];
   // @ViewChild("chart") chart: ChartComponent;
   //public chartOptions: Partial<ChartOptions>;
@@ -73,17 +74,21 @@ export class MapsComponent implements OnInit {
       }
     );
 
-    this.predictionService.getPreviousPredictionRate("USD","INR").subscribe(
+    this.predictionService.getPreviousPredictionRate("INR").subscribe(
       (response) =>
       {
-        PredictionService.previousPredictedData = response;
+        console.log("ahahaha");
+        console.log(response);
+        PredictionService.previousPredictedDataSecondary = response;
+
+
 
       },
       (error) => {
         console.log(error);
       }
     );
-
+    PredictionService.previousPredictedDataPrimary = "USD";
   }
   ngOnInit(): void {
 
@@ -93,8 +98,8 @@ export class MapsComponent implements OnInit {
     var min = Number.MAX_VALUE;
     for (let i = 0; i < this.noOfDays; i++) {
       if (i < this.noOfDays - this.noOfActualDays)
-        min = Math.min(min, this.actualData[i][1]);
-      min = Math.min(min, this.predictedData[i][1]);
+      min = Math.min(min, this.actualData[i][1]);
+     // min = Math.min(min, this.predictedData[i][1]);
 
 
     }
@@ -108,7 +113,7 @@ export class MapsComponent implements OnInit {
     for (let i = 0; i < this.noOfDays; i++) {
       if (i < this.noOfDays - this.noOfActualDays)
         max = Math.max(max, this.actualData[i][1]);
-      max = Math.max(max, this.predictedData[i][1]);
+      //max = Math.max(max, this.predictedData[i][1]);
 
     }
 
@@ -230,19 +235,40 @@ export class MapsComponent implements OnInit {
     }
   }
 
+  addDatePred(predicteddataArray: any[] , noOfDay: number) {
+    this.previousPredictedData = [];
+    var prevDate = new Date(new Date().setDate(new Date().getDate() - 30));
+    console.log("In addDatePred");
+    console.log(prevDate);
+    console.log(noOfDay);
+  for (let i = 0; i < noOfDay; i++) {
+      var epochDate = new Date(prevDate.setDate(prevDate.getDate() + 1)).getTime();
+      this.previousPredictedData.push([epochDate, predicteddataArray[i]]);
+    }
+  }
+
   primaryCurrencyValue(value) {
     var primaryCurrencyVal = this.currencyMapData.get(value);
     var secondaryCurrencyVal = this.currencyMapData.get(this.secondaryCurrencyPred);
-    this.predictionService.getPreviousPredictionRate(primaryCurrencyVal,secondaryCurrencyVal).subscribe(
-      (response) =>
-      {
-        PredictionService.previousPredictedData = response;
+    this.predCurrenyPrev = null;
+    this.previousPredictedData = [];
+    if(primaryCurrencyVal != 'USD')
+    {
+      console.log("In primary currency value");
+      this.predictionService.getPreviousPredictionRate(primaryCurrencyVal).subscribe(
+        (response) =>
+        {
+          PredictionService.previousPredictedDataPrimary = response;
 
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+    else{
+      PredictionService.previousPredictedDataPrimary = "USD";
+    }
     if (primaryCurrencyVal == 'USD') {
       var predictedcurrencyData = PredictionService.data[secondaryCurrencyVal];
       var actualCurrencyData = PredictionService.actualData[secondaryCurrencyVal];
@@ -288,16 +314,27 @@ export class MapsComponent implements OnInit {
   secondaryCurrencyValue(value) {
     var primaryCurrencyVal = this.currencyMapData.get(this.primaryCurrencyPred);
     var secondaryCurrencyVal = this.currencyMapData.get(value);
-    this.predictionService.getPreviousPredictionRate(primaryCurrencyVal,secondaryCurrencyVal).subscribe(
-      (response) =>
-      {
-        PredictionService.previousPredictedData = response;
+    this.predCurrenyPrev = null;
+    this.previousPredictedData = [];
 
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    if(secondaryCurrencyVal != 'USD')
+    {
+      this.predictionService.getPreviousPredictionRate(secondaryCurrencyVal).subscribe(
+        (response) =>
+        {
+          PredictionService.previousPredictedDataSecondary = response;
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+    else
+    {
+      PredictionService.previousPredictedDataSecondary = "USD";
+    }
+
     console.log("lol");
     console.log(value);
 
@@ -336,6 +373,7 @@ export class MapsComponent implements OnInit {
           actualCalculatedData.push(actualSecondaryCurrencyBase[i] / actualPrimaryCurrencyBase[i]);
         }
       }
+
       this.addDate(predCalculatedData, actualCalculatedData);
     }
     //this.setMapData();
@@ -346,52 +384,222 @@ export class MapsComponent implements OnInit {
 
   previousPredictionValue(value)
   {
-      var prevData =  PredictionService.previousPredictedData;
+    console.log("Please god");
+    console.log( PredictionService.previousPredictedDataPrimary);
+   console.log( PredictionService.previousPredictedDataPrimary);
+      var prevDataPrimary =  PredictionService.previousPredictedDataPrimary;
+      var prevDataSecondary = PredictionService.previousPredictedDataSecondary;
+      var prevData = [];
+      var prevData2 = [];
       var prevArray = [];
       switch(value)
       {
         case 1:
-
-          for(let i =0;i<prevData.size();i++)
+          if(prevDataPrimary == "USD")
           {
-              var data = prevData[i].get("rate")[0];
-              prevArray[i] = data;
+            prevData = prevDataSecondary["rates"];
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data = prevData[i]["rate"][0];
+                prevArray.push(data);
+            }
           }
+          else if(prevDataSecondary == "USD")
+          {
+              prevData = prevDataPrimary["rates"];
+              for(let i =0;i<prevData.length;i++)
+              {
+                  var data = prevData[i]["rate"][0];
+                  prevArray.push(1/data);
+              }
+          }
+          else
+          {
+            prevData = prevDataPrimary["rates"];
+            prevData2 = prevDataSecondary["rates"];
+            console.log(prevData);
+            console.log(prevData2);
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data1 = prevData[i]["rate"][0];
+                var data2 = prevData2[i]["rate"][0];
+                console.log("Please help");
+                console.log(data1);
+                console.log(data2);
+                prevArray.push(data2/data1);
+            }
+
+          }
+          this.addDatePred(prevArray,25);
+
           console.log("In 1");
           break;
         case 3:
-          for(let i =0;i<prevData.size();i++)
+          if(prevDataPrimary == "USD")
           {
-              var data = prevData[i].get("rate")[2];
-              prevArray[i] = data;
+            prevData = prevDataSecondary["rates"];
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data = prevData[i]["rate"][2];
+                prevArray.push(data);
+            }
           }
+          else if(prevDataSecondary == "USD")
+          {
+              prevData = prevDataPrimary["rates"];
+              for(let i =0;i<prevData.length;i++)
+              {
+                  var data = prevData[i]["rate"][2];
+                  prevArray.push(1/data);
+              }
+          }
+          else
+          {
+            prevData = prevDataPrimary["rates"];
+            prevData2 = prevDataSecondary["rates"];
+            console.log(prevData);
+            console.log(prevData2);
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data1 = prevData[i]["rate"][2];
+                var data2 = prevData2[i]["rate"][2];
+                console.log("Please help");
+                console.log(data1);
+                console.log(data2);
+                prevArray.push(data2/data1);
+            }
+
+          }
+          this.addDatePred(prevArray,25);
+
+          console.log("In 1");
           break;
         case 5:
 
-          for(let i =0;i<prevData.size();i++)
+          if(prevDataPrimary == "USD")
           {
-              var data = prevData[i].get("rate")[0];
-              prevArray.push(data);
+            prevData = prevDataSecondary["rates"];
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data = prevData[i]["rate"][4];
+                prevArray.push(data);
+            }
           }
+          else if(prevDataSecondary == "USD")
+          {
+              prevData = prevDataPrimary["rates"];
+              for(let i =0;i<prevData.length;i++)
+              {
+                  var data = prevData[i]["rate"][4];
+                  prevArray.push(1/data);
+              }
+          }
+          else
+          {
+            prevData = prevDataPrimary["rates"];
+            prevData2 = prevDataSecondary["rates"];
+            console.log(prevData);
+            console.log(prevData2);
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data1 = prevData[i]["rate"][4];
+                var data2 = prevData2[i]["rate"][4];
+                console.log("Please help");
+                console.log(data1);
+                console.log(data2);
+                prevArray.push(data2/data1);
+            }
+
+          }
+          this.addDatePred(prevArray,25);
+
+          console.log("In 1");
           break;
         case 7:
 
-          for(let i =0;i<prevData.size();i++)
+          if(prevDataPrimary == "USD")
           {
-              var data = prevData[i].get("rate")[0];
-              prevArray.push(data);
+            prevData = prevDataSecondary["rates"];
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data = prevData[i]["rate"][6];
+                prevArray.push(data);
+            }
           }
+          else if(prevDataSecondary == "USD")
+          {
+              prevData = prevDataPrimary["rates"];
+              for(let i =0;i<prevData.length;i++)
+              {
+                  var data = prevData[i]["rate"][6];
+                  prevArray.push(1/data);
+              }
+          }
+          else
+          {
+            prevData = prevDataPrimary["rates"];
+            prevData2 = prevDataSecondary["rates"];
+            console.log(prevData);
+            console.log(prevData2);
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data1 = prevData[i]["rate"][6];
+                var data2 = prevData2[i]["rate"][6];
+                console.log("Please help");
+                console.log(data1);
+                console.log(data2);
+                prevArray.push(data2/data1);
+            }
+
+          }
+          this.addDatePred(prevArray,25);
+
+          console.log("In 1");
           break;
         case 10:
-          for(let i =0;i<prevData.size();i++)
+          if(prevDataPrimary == "USD")
           {
-              var data = prevData[i].get("rate")[0];
-              prevArray.push(data);
+            prevData = prevDataSecondary["rates"];
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data = prevData[i]["rate"][9];
+                prevArray.push(data);
+            }
           }
+          else if(prevDataSecondary == "USD")
+          {
+              prevData = prevDataPrimary["rates"];
+              for(let i =0;i<prevData.length;i++)
+              {
+                  var data = prevData[i]["rate"][9];
+                  prevArray.push(1/data);
+              }
+          }
+          else
+          {
+            prevData = prevDataPrimary["rates"];
+            prevData2 = prevDataSecondary["rates"];
+            console.log(prevData);
+            console.log(prevData2);
+            for(let i =0;i<prevData.length;i++)
+            {
+                var data1 = prevData[i]["rate"][9];
+                var data2 = prevData2[i]["rate"][9];
+                console.log("Please help");
+                console.log(data1);
+                console.log(data2);
+                prevArray.push(data2/data1);
+            }
+
+          }
+          this.addDatePred(prevArray,25);
+
+          console.log("In 1");
           break;
       }
       this.predictedData = [];
-      this.previousPredictedData = prevArray;
+      console.log("hhhhhh");
+      console.log(this.previousPredictedData);
       this.initChartData();
   }
 }
