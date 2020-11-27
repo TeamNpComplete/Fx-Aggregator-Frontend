@@ -91,6 +91,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.secondaryCurrencyGraph = codes['secondary'];
     this.primaryCurrencyBest = codes['primary'];
     this.secondaryCurrencyBest = codes['secondary'];
+    this.onGraphParamsChanged();
+    this.onBestWorstRatesChanged();
   }
 
   onGraphParamsChanged() {
@@ -140,7 +142,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     
     if(this.endDate == null || this.startDate == null)
       return;
-      
+
     this.exchangeRatesService.getExchangeRateForRange(this.primaryCurrencyBest.split(' ')[0], this.secondaryCurrencyBest.split(' ')[0], this.startDate, this.endDate).subscribe(
       (response) => {
         this.worseRate = response["worst_rate"];
