@@ -19,24 +19,6 @@ import {
   ApexAnnotations
 } from "ng-apexcharts";
 
-
-
-// export type ChartOptions = {
-//   series: ApexAxisChartSeries;
-//   chart: ApexChart;
-//   dataLabels: ApexDataLabels;
-//   markers: ApexMarkers;
-//   title: ApexTitleSubtitle;
-//   fill: ApexFill;
-//   yaxis: ApexYAxis;
-//   xaxis: ApexXAxis;
-//   tooltip: ApexTooltip;
-//   stroke: ApexStroke;
-//   annotations: ApexAnnotations;
-//   colors: any;
-//   toolbar: any;
-// };
-
 @Component({
   selector: 'app-maps',
   templateUrl: './rate-prediction.component.html',
@@ -47,12 +29,14 @@ export class MapsComponent implements OnInit {
   secondaryCurrencyPred: string = "INR - Indian rupee";
   predictedData = []
   actualData = []
+  previousPredictedData = []
   currencies: string[] = appConfiguration.supportedCurrencies;
   currencyMapData = appConfiguration.currencyMap;
   noOfDays = 30;
   noOfActualDays = 5;
   minDay;
   maxDay;
+  daysPredict = [1,3,5,7,10];
   // @ViewChild("chart") chart: ChartComponent;
   //public chartOptions: Partial<ChartOptions>;
   public series: ApexAxisChartSeries;
@@ -89,8 +73,16 @@ export class MapsComponent implements OnInit {
       }
     );
 
+    this.predictionService.getPreviousPredictionRate("USD","INR").subscribe(
+      (response) =>
+      {
+        PredictionService.previousPredictedData = response;
 
-
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
   }
   ngOnInit(): void {
@@ -141,6 +133,12 @@ export class MapsComponent implements OnInit {
       {
         name: "Actual",
         data: this.actualData
+      },
+
+      {
+        name: "Previous Data",
+        data: this.previousPredictedData
+
       }
     ];
     this.chart = {
@@ -216,74 +214,6 @@ export class MapsComponent implements OnInit {
       this.predictedData.push([epochDate, predINRData[i]]);
     }
   }
-  // setMapData(){
-  //   this.chartOptions = {
-  //     series: [
-  //       {
-  //         name: "Predicted",
-  //         data: this.predictedData
-  //       },
-
-  //       {
-  //         name: "Actual",
-  //         data: this.actualData
-  //       }
-  //     ],
-  //     chart: {
-  //       height: 350,
-  //       type: "area",
-  //       zoom: {
-  //         type: "x",
-  //         enabled: true,
-  //         autoScaleYaxis: true
-  //       },
-  //       toolbar: {
-  //         autoSelected: "zoom"
-  //       }
-  //     },
-  //     dataLabels: {
-  //       enabled: false
-  //     },
-  //     stroke: {
-  //       curve: "straight"
-  //     },
-  //     title: {
-  //       text: "",
-  //       align: "left"
-  //     },
-  //     grid: {
-  //       row: {
-  //         colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-  //         opacity: 0.5
-  //       }
-  //     },
-  //     xaxis: {
-  //       type: "datetime"
-  //     },
-  //     yaxis: {
-
-  //       labels: {
-  //         formatter: function (value) {
-  //           return value.toFixed(2);
-  //         }
-  //       },
-  //     },
-  //     tooltip: {
-  //       shared: false
-  //     },
-  //     fill:
-  //     {
-  //       type: "gradient",
-  //       gradient: {
-  //         shadeIntensity: 1,
-  //         inverseColors: false,
-  //         opacityFrom: 0.5,
-  //         opacityTo: 0,
-  //         stops: [0, 90, 100]
-  //       }
-  //     }
-  //   };
-  // }
 
   addDate(predicteddataArray: any[], actualdataArray: any[]) {
     this.predictedData = [];
@@ -303,6 +233,16 @@ export class MapsComponent implements OnInit {
   primaryCurrencyValue(value) {
     var primaryCurrencyVal = this.currencyMapData.get(value);
     var secondaryCurrencyVal = this.currencyMapData.get(this.secondaryCurrencyPred);
+    this.predictionService.getPreviousPredictionRate(primaryCurrencyVal,secondaryCurrencyVal).subscribe(
+      (response) =>
+      {
+        PredictionService.previousPredictedData = response;
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     if (primaryCurrencyVal == 'USD') {
       var predictedcurrencyData = PredictionService.data[secondaryCurrencyVal];
       var actualCurrencyData = PredictionService.actualData[secondaryCurrencyVal];
@@ -348,6 +288,16 @@ export class MapsComponent implements OnInit {
   secondaryCurrencyValue(value) {
     var primaryCurrencyVal = this.currencyMapData.get(this.primaryCurrencyPred);
     var secondaryCurrencyVal = this.currencyMapData.get(value);
+    this.predictionService.getPreviousPredictionRate(primaryCurrencyVal,secondaryCurrencyVal).subscribe(
+      (response) =>
+      {
+        PredictionService.previousPredictedData = response;
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     console.log("lol");
     console.log(value);
 
@@ -392,5 +342,56 @@ export class MapsComponent implements OnInit {
     this.initChartData();
 
 
+  }
+
+  previousPredictionValue(value)
+  {
+      var prevData =  PredictionService.previousPredictedData;
+      var prevArray = [];
+      switch(value)
+      {
+        case 1:
+
+          for(let i =0;i<prevData.size();i++)
+          {
+              var data = prevData[i].get("rate")[0];
+              prevArray[i] = data;
+          }
+          console.log("In 1");
+          break;
+        case 3:
+          for(let i =0;i<prevData.size();i++)
+          {
+              var data = prevData[i].get("rate")[2];
+              prevArray[i] = data;
+          }
+          break;
+        case 5:
+
+          for(let i =0;i<prevData.size();i++)
+          {
+              var data = prevData[i].get("rate")[0];
+              prevArray.push(data);
+          }
+          break;
+        case 7:
+
+          for(let i =0;i<prevData.size();i++)
+          {
+              var data = prevData[i].get("rate")[0];
+              prevArray.push(data);
+          }
+          break;
+        case 10:
+          for(let i =0;i<prevData.size();i++)
+          {
+              var data = prevData[i].get("rate")[0];
+              prevArray.push(data);
+          }
+          break;
+      }
+      this.predictedData = [];
+      this.previousPredictedData = prevArray;
+      this.initChartData();
   }
 }
