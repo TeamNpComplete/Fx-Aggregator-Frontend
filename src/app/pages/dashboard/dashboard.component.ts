@@ -5,6 +5,8 @@ import { appConfiguration } from 'src/app/config/app.config';
 import { ExchangeRatesService } from '../../services/exchange-rates.service';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -21,12 +23,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public clicked1: boolean = false;
   public currencyArray = [88.011, 88.011, 88.4825, 88.0795, 88.186, 88.186, 88.186, 88.066, 87.562, 87.6665, 87.638, 88.0085, 88.0085, 88.0085, 87.7405, 87.1955, 87.0695, 86.7555, 87.1115, 87.1115, 87.1115, 87.0865, 86.804, 87.1635, 87.5485, 87.3245, 87.3245, 87.3245, 87.112, 87.3745];
 
-  primaryCurrency: String = 'USD';
-  secondaryCurrency: String = 'INR';
+  primaryCurrency: String = 'USD - United States dollar';
+  secondaryCurrency: String = 'INR - Indian rupee';
   vendorValue: String = 'European Central Bank';
 
-  primaryCurrencyGraph: String = null;
-  secondaryCurrencyGraph: String = null;
+  primaryCurrencyGraph: String = "USD - United States dollar";
+  secondaryCurrencyGraph: String = "INR - Indian rupee";
+  primaryCurrencyBest: String = "USD - United States dollar";
+  secondaryCurrencyBest: String = "INR - Indian rupee";
   vendorValueGraph: String = null;
   primaryCurrency1: String = null;
   secondaryCurrency1: String = null;
@@ -35,6 +39,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   currencies: String[] = appConfiguration.supportedCurrencies;
   vendors: String[] = appConfiguration.supportedVendors;
+  currencyMap = appConfiguration.currencyMap;
 
   public copy: string;
   public lineChartLabels: Label[];
@@ -62,7 +67,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
 
-    this.primaryCurrencyGraph = "USD";
+
     for (let i = 30; i > 0; i--) {
       var day = new Date(this.year, this.month - 1, this.date - i);
       this.dates.push(day.getDate());

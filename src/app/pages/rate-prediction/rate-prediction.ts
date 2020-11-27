@@ -18,7 +18,7 @@ import {
   ApexMarkers,
   ApexAnnotations
 } from "ng-apexcharts";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+
 
 
 // export type ChartOptions = {
@@ -49,8 +49,8 @@ export class MapsComponent implements OnInit {
   actualData = []
   currencies: string[] = appConfiguration.supportedCurrencies;
   currencyMapData = appConfiguration.currencyMap;
-  noOfDays = 40;
-  noOfActualDays = 10;
+  noOfDays = 30;
+  noOfActualDays = 5;
   minDay;
   maxDay;
   // @ViewChild("chart") chart: ChartComponent;
@@ -97,25 +97,21 @@ export class MapsComponent implements OnInit {
 
   }
   getMinAxis() {
-    //console.log(this.predictedData[1][0]);
 
-    //console.log(this.predictedData);
     var min = Number.MAX_VALUE;
     for (let i = 0; i < this.noOfDays; i++) {
       if (i < this.noOfDays - this.noOfActualDays)
         min = Math.min(min, this.actualData[i][1]);
       min = Math.min(min, this.predictedData[i][1]);
-     // console.log("lol");
+
 
     }
-    min = Math.floor(min / 10) * 10
     console.log(min);
     return min;
   }
 
   getMaxAxis() {
-    var minVal = this.getMinAxis();
-    //console.log(minVal);
+
     var max = 0;
     for (let i = 0; i < this.noOfDays; i++) {
       if (i < this.noOfDays - this.noOfActualDays)
@@ -123,15 +119,19 @@ export class MapsComponent implements OnInit {
       max = Math.max(max, this.predictedData[i][1]);
 
     }
-    max = Math.round(max / 10) * 10
-    console.log(max);
-    return Math.max(minVal + 15, max);
+
+    return max;
 
   }
 
   public initChartData(): void {
 
-
+    var minVal = this.getMinAxis();
+    var maxVal = this.getMaxAxis();
+    var range = maxVal - minVal;
+    var mean = (maxVal + minVal)/2;
+    var minLimit = minVal - range;
+    var maxLimit = maxVal + range;
     this.series = [
       {
         name: "Predicted",
@@ -175,8 +175,8 @@ export class MapsComponent implements OnInit {
     };
     this.yaxis = {
 
-      // min: this.getMinAxis(),
-      // max: this.getMaxAxis(),
+      min: minLimit,
+      max: maxLimit,
       forceNiceScale: true,
       labels: {
         formatter: function (val) {

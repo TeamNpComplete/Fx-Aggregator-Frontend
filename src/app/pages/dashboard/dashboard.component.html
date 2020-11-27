@@ -2,8 +2,8 @@
 <div class="header pt-5 pt-md-8">
 
 </div>
-<div class="container-fluid mt--7">
-  <div class="row">
+<div class="container-fluid mt--7" style="height: 100%;">
+  <div class="row" style="height: 100%;">
     <div class="col-xl-8 mb-5 mb-xl-0">
       <div class="card bg-gradient-white shadow">
         <div class="card-header bg-transparent">
@@ -56,22 +56,114 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-4">
-      <div class="card shadow" style="height: 100%;">
-        <div class="card-header bg-transparent">
+    <div class="col-xl-4" style="height: 100%;">
+      <div class="card " style="height: 100%;">
+        <div class="card-header bg-transparent" >
           <div class="row align-items-center">
             <div class="col">
-              <h6 class="text-uppercase text-muted ls-1 mb-1">Overview</h6>
-              <h2 class="mb-0">Transactions</h2>
 
+              <h2 class="mb-0">Best Rates</h2>
 
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="chart">
-            <canvas id="chart-orders" class="chart-canvas"></canvas>
+        <div class="card-body bg-transparent mt--4">
+          <div class="row  align-items-center ">
+            <div class="col-sm-3">
+              <mat-form-field style="width: 100%">
+                <mat-select placeholder="C1"  [(ngModel)]="primaryCurrencyBest" name="Currency">
+                  <mat-option *ngFor="let currency of currencies" [value]="currency"
+                    [disabled]="secondaryCurrencyGraph === currency">
+                    {{currency}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-3">
+              <mat-form-field style="width: 100%">
+                <mat-select placeholder="C2" [(ngModel)]="secondaryCurrencyBest" name="Currency">
+                  <mat-option *ngFor="let currency of currencies" [value]="currency"
+                    [disabled]="primaryCurrencyGraph === currency">
+                    {{currency}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+              <mat-form-field style="width:100%">
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date" style="font-size: small;" [(ngModel)]="startDate"
+                    name="sd">
+                  <input matEndDate placeholder="End date" style="font-size: small;" [(ngModel)]="endDate" name="ed">
+                </mat-date-range-input>
+
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+
+            </div>
           </div>
+
+          <mat-card>
+            <mat-card-content>
+              <div class="row">
+                <div class="col">
+                  <h1><span class="badge badge-secondary bg-blue text-white">Best Rate</span></h1>
+                </div>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <div class="row">
+                      <h2><span class="badge badge-light text-black-50">{{currencyMap.get(primaryCurrencyBest)}} -> {{currencyMap.get(secondaryCurrencyBest)}}</span></h2>
+
+                    </div>
+                    <div class="row">
+                      <h2><span class="badge badge-light text-black-50">European Central Bank</span></h2>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 m--2  d-flex justify-content-center">
+                    <h1>76</h1>
+                  </div>
+                </div>
+              </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+          </mat-card>
+
+          <mat-card class="mt-4">
+            <mat-card-content>
+              <div class="row">
+                <div class="col">
+                  <h1><span class="badge badge-secondary bg-blue text-white">Worst Rate</span></h1>
+                </div>
+                <div class="col mt-5">
+
+                </div>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <div class="row">
+                      <h2><span class="badge badge-light text-black-50">{{currencyMap.get(primaryCurrencyBest)}} -> {{currencyMap.get(secondaryCurrencyBest)}}</span></h2>
+                    </div>
+                    <div class="row">
+                      <h2><span class="badge badge-light text-black-50">European Central Bank</span></h2>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 m--2  d-flex justify-content-center">
+                    <h1>76</h1>
+                  </div>
+                </div>
+              </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+          </mat-card>
         </div>
       </div>
     </div>
