@@ -35,7 +35,7 @@ export class ExchangeRatesService {
     });
 
     let requestUrl = apiConfiguration.exchangeRateHost + apiConfiguration.exchangeRateForRangeRoute +
-      `?from=${fromCurrency}&to=${toCurrency}&startDate=${startDate.toLocaleDateString('en-US')}&endDate=${endDate.toLocaleDateString('en-US')}`;
+      `?from=${fromCurrency}&to=${toCurrency}&startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}`;
     return this.http.get(requestUrl, { headers: header });
   }
 }

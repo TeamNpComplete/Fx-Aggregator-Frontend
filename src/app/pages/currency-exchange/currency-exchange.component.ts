@@ -52,8 +52,8 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.primaryCurrency = 'USD';
-    this.secondaryCurrency = 'INR';
+    this.primaryCurrency = 'USD - United States dollar';
+    this.secondaryCurrency = 'INR - Indian rupee';
     //this.viewExchangeRateTable = true;
   }
 
@@ -91,9 +91,18 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
   onCurrencyChanged() {
+    this.onCheckRatesClicked();
     this.currenciesChanged.emit({
       'primary' : this.primaryCurrency,
       'secondary' : this.secondaryCurrency
     });
+  }
+
+  onAmountChanged() {
+    this.currencyRates.forEach((exchangeRate : ExchangeRateModel) => {
+      let convertedAmount = Number(exchangeRate.rate) * Number(this.amountToConvert);
+      exchangeRate.amount = convertedAmount;
+    });
+    this.setDataSourceAttributes();
   }
 }

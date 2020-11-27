@@ -7,7 +7,7 @@ export let apiConfiguration = {
     usersLoginRoute: "/api/users/login",
     usersRegistrationRoute: "/api/users/register",
     exchangeRateRoute: "/api/exchange_rates",
-    exchangeRateForRangeRoute: "/api/exchange_rates/range",
+    exchangeRateForRangeRoute: "/api/exchange_rates/best_worst",
     lastMonthRoute : "/api/exchange_rates/last_month",
     predictionRoute: "/predict",
     actualRoute: "/actual",

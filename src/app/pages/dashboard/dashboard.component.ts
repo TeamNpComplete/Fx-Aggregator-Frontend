@@ -6,6 +6,7 @@ import { ExchangeRatesService } from '../../services/exchange-rates.service';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
+import { error } from 'protractor';
 
 
 @Component({
@@ -34,8 +35,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   vendorValueGraph: String = null;
   primaryCurrency1: String = null;
   secondaryCurrency1: String = null;
-  startDate: Date = null;
-  endDate: Date = null;
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  worseRate : Number = 0;
+  bestRate : Number = 0;
+  worseVendor : String = "NA";
+  bestVendor : String = "NA";
 
   currencies: String[] = appConfiguration.supportedCurrencies;
   vendors: String[] = appConfiguration.supportedVendors;
@@ -66,14 +71,38 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit() {
+    this.onGraphParamsChanged();
+    this.onBestWorstRatesChanged();
+  }
 
+  ngAfterViewInit() {
 
+  }
+
+  public updateOptions() {
+    this.salesChart.data.datasets[0].data = this.data;
+    this.salesChart.update();
+  }
+
+  public onCurrencyCodeChanged(codes) {
+    this.primaryCurrency = codes['primary'];
+    this.secondaryCurrency = codes['secondary'];
+    this.primaryCurrencyGraph = codes['primary'];
+    this.secondaryCurrencyGraph = codes['secondary'];
+    this.primaryCurrencyBest = codes['primary'];
+    this.secondaryCurrencyBest = codes['secondary'];
+    this.onGraphParamsChanged();
+    this.onBestWorstRatesChanged();
+  }
+
+  onGraphParamsChanged() {
+    this.dates = [];
     for (let i = 30; i > 0; i--) {
       var day = new Date(this.year, this.month - 1, this.date - i);
       this.dates.push(day.getDate());
     }
 
-    this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrency.split(' ')[0], this.secondaryCurrency.split(' ')[0], this.vendorValue).subscribe(
+    this.exchangeRatesService.getExchangeRateForLastMonth(this.primaryCurrencyGraph.split(' ')[0], this.secondaryCurrencyGraph.split(' ')[0], this.vendorValue).subscribe(
       (response: JSON[]) => {
         console.log(response);
         this.currencyArray = [];
@@ -107,23 +136,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       [0, 20, 5, 25, 10, 30, 15, 40, 40]
     ];
     this.data = this.datasets[0];
-
-    var chartOrders = document.getElementById('chart-orders');
   }
 
-  ngAfterViewInit() {
+  onBestWorstRatesChanged() {
+    
+    if(this.endDate == null || this.startDate == null)
+      return;
 
-  }
-
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
-  }
-
-  public onCurrencyCodeChanged(codes) {
-    this.primaryCurrency = codes['primary'];
-    this.secondaryCurrency = codes['secondary'];
-    this.primaryCurrencyGraph = codes['primary'];
-    this.secondaryCurrencyGraph = codes['secondary'];
+    this.exchangeRatesService.getExchangeRateForRange(this.primaryCurrencyBest.split(' ')[0], this.secondaryCurrencyBest.split(' ')[0], this.startDate, this.endDate).subscribe(
+      (response) => {
+        this.worseRate = response["worst_rate"];
+        this.bestRate = response["best_rate"];
+        this.worseVendor = response["worst_rate_vendor"];
+        this.bestVendor = response["best_rate_vendor"];
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 }
