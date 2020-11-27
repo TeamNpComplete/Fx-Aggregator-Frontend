@@ -52,8 +52,8 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.primaryCurrency = 'USD';
-    this.secondaryCurrency = 'INR';
+    this.primaryCurrency = 'USD - United States dollar';
+    this.secondaryCurrency = 'INR - Indian rupee';
     //this.viewExchangeRateTable = true;
   }
 
