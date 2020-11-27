@@ -23,7 +23,7 @@
                       <mat-option *ngFor="let currency of currencies" [value]="currency"
                         [disabled]="secondaryCurrency === currency">
                         <!-- <span>{{currency}} -> {{currencyMap.get(currency)}}</span> -->
-                        <span class={{currencyMap.get(currency)}}></span>
+                        <!-- <span class={{currencyMap.get(currency)}}></span> -->
                         {{currency}}
                       </mat-option>
                     </mat-select>
@@ -36,7 +36,7 @@
                       [(ngModel)]="secondaryCurrency" name="Currency">
                       <mat-option *ngFor="let currency of currencies" [value]="currency"
                         [disabled]="primaryCurrency === currency">
-                        <span class={{currencyMap.get(currency)}}></span>
+                        <!-- <span class={{currencyMap.get(currency)}}></span> -->
                         {{currency}}
                       </mat-option>
                     </mat-select>
@@ -70,7 +70,7 @@
 
           <h3 class="mb-3">Exchange Rates for {{primaryCurrency}} to {{secondaryCurrency}} </h3>
 
-          <div class="container">
+          <div div class="container">
             <table mat-table class="table table-bordered" [dataSource]="dataSource" matSort>
 
               <ng-container matColumnDef="vendor">

@@ -39,12 +39,13 @@
     --info: #11cdef;
     --warning: #fb6340;
     --danger: #f5365c;
-    --light: #adb5bd;
+    --light: #9f9dbe;
     --dark: #212529;
     --default: #172b4d;
     --white: #fff;
     --neutral: #fff;
     --darker: black;
+    --lol: #d6d4ee;
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;

@@ -27,7 +27,7 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
   currencies: String[] = appConfiguration.supportedCurrencies;
   dataSource = new MatTableDataSource(this.currencyRates);
   public copy: string;
-   currencyMap = new Map([
+   currencyMapFlags = new Map([
     [this.currencies[0], "flag-icon flag-icon-us"],
     [this.currencies[1], ""],
     [this.currencies[2], "flag-icon flag-icon-in"],
