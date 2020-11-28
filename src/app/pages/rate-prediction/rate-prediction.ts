@@ -30,14 +30,14 @@ export class MapsComponent implements OnInit {
   predictedData = []
   actualData = []
   previousPredictedData = []
-  currencies: string[] = appConfiguration.supportedCurrencies;
-  currencyMapData = appConfiguration.currencyMap;
-  noOfDays = 30;
-  noOfActualDays = 5;
+  currencies: string[] = appConfiguration.predictionSupportedCurrencies;
+  currencyMapData = appConfiguration.predictionCurrencyMap;
+  noOfDays = 35;
+  noOfActualDays = 10;
   minDay;
   maxDay;
   predCurrenyPrev: string = null;
-  daysPredict = [1,3,5,7,10];
+  daysPredict = [5,10];
   // @ViewChild("chart") chart: ChartComponent;
   //public chartOptions: Partial<ChartOptions>;
   public series: ApexAxisChartSeries;
@@ -206,7 +206,7 @@ export class MapsComponent implements OnInit {
     };
   }
   mapInit() {
-    var prevDate = new Date(new Date().setDate(new Date().getDate() - 30));
+    var prevDate = new Date(new Date().setDate(new Date().getDate() - 25));
     var predINRData = PredictionService.data['INR'];
     var actualINRData = PredictionService.actualData['INR'];
     for (let i = 0; i < this.noOfDays; i++) {
@@ -223,7 +223,7 @@ export class MapsComponent implements OnInit {
   addDate(predicteddataArray: any[], actualdataArray: any[]) {
     this.predictedData = [];
     this.actualData = [];
-    var prevDate = new Date(new Date().setDate(new Date().getDate() - 30));
+    var prevDate = new Date(new Date().setDate(new Date().getDate() - 25));
     for (let i = 0; i < this.noOfDays; i++) {
       var epochDate = new Date(prevDate.setDate(prevDate.getDate() + 1)).getTime();
       if (i < this.noOfDays - this.noOfActualDays) {
@@ -237,7 +237,7 @@ export class MapsComponent implements OnInit {
 
   addDatePred(predicteddataArray: any[] , noOfDay: number) {
     this.previousPredictedData = [];
-    var prevDate = new Date(new Date().setDate(new Date().getDate() - 30));
+    var prevDate = new Date(new Date().setDate(new Date().getDate() - 25));
     console.log("In addDatePred");
     console.log(prevDate);
     console.log(noOfDay);
