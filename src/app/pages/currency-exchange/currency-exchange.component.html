@@ -78,7 +78,7 @@
                 <td style="font-size: 100%;" mat-cell *matCellDef="let element"> 
                   <div class="row">
                     <div class="col-md-9">{{element.vendor | uppercase}} </div>
-                    <div class="col-md-3"><a href="https://www.google.com" target="blank" class="badge badge-primary">EXCHANGE</a></div>
+                    <div class="col-md-3"><a [href]="element.url" target="blank" class="badge badge-primary">EXCHANGE</a></div>
                   </div>
                   
                 </td>

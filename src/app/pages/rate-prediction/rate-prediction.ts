@@ -77,8 +77,6 @@ export class MapsComponent implements OnInit {
     this.predictionService.getPreviousPredictionRate("INR").subscribe(
       (response) =>
       {
-        console.log("ahahaha");
-        console.log(response);
         PredictionService.previousPredictedDataSecondary = response;
 
 
@@ -127,8 +125,8 @@ export class MapsComponent implements OnInit {
     var maxVal = this.getMaxAxis();
     var range = maxVal - minVal;
     var mean = (maxVal + minVal)/2;
-    var minLimit = minVal - range;
-    var maxLimit = maxVal + range;
+    var minLimit = minVal - 1.1 * range;
+    var maxLimit = maxVal + 1.1 * range;
     this.series = [
       {
         name: "Predicted",
@@ -238,9 +236,6 @@ export class MapsComponent implements OnInit {
   addDatePred(predicteddataArray: any[] , noOfDay: number) {
     this.previousPredictedData = [];
     var prevDate = new Date(new Date().setDate(new Date().getDate() - 25));
-    console.log("In addDatePred");
-    console.log(prevDate);
-    console.log(noOfDay);
   for (let i = 0; i < noOfDay; i++) {
       var epochDate = new Date(prevDate.setDate(prevDate.getDate() + 1)).getTime();
       this.previousPredictedData.push([epochDate, predicteddataArray[i]]);
@@ -254,7 +249,6 @@ export class MapsComponent implements OnInit {
     this.previousPredictedData = [];
     if(primaryCurrencyVal != 'USD')
     {
-      console.log("In primary currency value");
       this.predictionService.getPreviousPredictionRate(primaryCurrencyVal).subscribe(
         (response) =>
         {
@@ -290,8 +284,6 @@ export class MapsComponent implements OnInit {
     }
     else {
       var predPrimaryCurrencyBase = PredictionService.data[primaryCurrencyVal];
-      console.log(primaryCurrencyVal);
-      console.log(predPrimaryCurrencyBase);
       var predSecondaryCurrencyBase = PredictionService.data[secondaryCurrencyVal];
       var actualPrimaryCurrencyBase = PredictionService.actualData[primaryCurrencyVal];
       var actualSecondaryCurrencyBase = PredictionService.actualData[secondaryCurrencyVal];
@@ -334,9 +326,6 @@ export class MapsComponent implements OnInit {
     {
       PredictionService.previousPredictedDataSecondary = "USD";
     }
-
-    console.log("lol");
-    console.log(value);
 
     console.log(secondaryCurrencyVal);
     if (primaryCurrencyVal == 'USD') {
@@ -384,9 +373,6 @@ export class MapsComponent implements OnInit {
 
   previousPredictionValue(value)
   {
-    console.log("Please god");
-    console.log( PredictionService.previousPredictedDataPrimary);
-   console.log( PredictionService.previousPredictedDataPrimary);
       var prevDataPrimary =  PredictionService.previousPredictedDataPrimary;
       var prevDataSecondary = PredictionService.previousPredictedDataSecondary;
       var prevData = [];

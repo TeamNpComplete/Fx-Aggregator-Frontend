@@ -8,9 +8,9 @@ import { TransactionHistoryComponent } from '../../pages/transaction-history/tra
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'user-profile', component: UserProfileComponent },
-    { path: 'tables', component: TransactionHistoryComponent },
-    { path: 'icons', component: CurrencyExchangeComponent },
-    { path: 'maps', component: MapsComponent }
+    { path: 'dashboard', component: DashboardComponent ,canActivate : [ AuthGuardService ] },
+    { path: 'user-profile', component: UserProfileComponent ,canActivate : [ AuthGuardService ] },
+    { path: 'tables', component: TransactionHistoryComponent ,canActivate : [ AuthGuardService ] },
+    { path: 'icons', component: CurrencyExchangeComponent ,canActivate : [ AuthGuardService ] },
+    { path: 'maps', component: MapsComponent ,canActivate : [ AuthGuardService ] }
 ];

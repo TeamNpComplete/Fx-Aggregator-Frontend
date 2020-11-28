@@ -82,8 +82,8 @@ export class CurrencyExchangeComponent implements OnInit, AfterViewInit {
       (error) => {
         console.log(error);
         this.currencyRates = [
-          { vendor: 'European Central Bank', rate: 1.9, amount: 1.9 * 10000 },
-          { vendor: 'Union Bank Of Switzerland', rate: 2.0, amount: 2.0 * 10000 }
+          { vendor: 'European Central Bank', rate: 1.9, amount: 1.9 * 10000, date : new Date().toISOString().split('T')[0] , url : ''},
+          { vendor: 'Union Bank Of Switzerland', rate: 2.0, amount: 2.0 * 10000 , date : new Date().toISOString().split('T')[0], url : ''}
         ];
         this.setDataSourceAttributes();
       }
